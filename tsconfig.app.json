@@ -20,7 +20,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".", 
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
+  "exclude": ["node_modules", "dist", "build"],
   "include": ["src"]
 }
