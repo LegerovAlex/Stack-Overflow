@@ -1,9 +1,8 @@
 import { InputField } from '@/ui';
-import type { FC } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, type FieldValues } from 'react-hook-form';
 import type { FormInputProps } from './FormInput.props';
 
-export const FormInput: FC<FormInputProps> = ({
+export const FormInput = <T extends FieldValues>({
   name,
   label,
   placeholder,
@@ -11,7 +10,7 @@ export const FormInput: FC<FormInputProps> = ({
   startAdornment,
   endAdornment,
   ...rest
-}) => {
+}: FormInputProps<T>) => {
   return (
     <Controller
       name={name}

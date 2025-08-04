@@ -1,18 +1,31 @@
 {
-    "labels": {
-       "email": "Email address",
-       "password": "Password",
-       "newPassword": "New password",
-       "confirmPassword": "Confirm new password"
-    },
-    "placeholders": {
-        "email": "Enter your email",
-        "password": "Enter password",
-        "newPassword": "Enter password",
-        "confirmPassword": "Confirm password"
-    },
+  "labels": {
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password"
+  },
+
+  "placeholders": {
+    "username": "Enter your username",
+    "password": "Enter your password",
+    "confirmPassword": "Confirm your password"
+  },
+
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "registerLink": "Sign up",
+    "loginLink": "Log in",
     "errors": {
-    "required": "This field is required",
-    "email": "Invalid email address"
+      "required": "This field is required",
+      "minLength": "Must be at least {{count}} characters",
+      "maxLength": "Must be at most {{count}} characters",
+      "usernameInvalid": "Username can only contain letters, numbers, and underscores",
+      "passwordInvalid": "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+      "confirmPasswordRequired": "Confirm password is required",
+      "confirmPasswordMismatch": "Passwords must match"
+    }
   }
 }
