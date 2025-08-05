@@ -1,7 +1,7 @@
-// ui/InputField.tsx
 import { Box, InputAdornment, InputLabel, TextField } from '@mui/material';
 import { forwardRef, useId } from 'react';
 import type { InputFieldProps } from './InputField.props';
+import { inputFieldStyles } from './InputField.styles';
 
 export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   (
@@ -12,7 +12,11 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
     return (
       <Box>
-        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+        {label && (
+          <InputLabel htmlFor={id} sx={inputFieldStyles.label}>
+            {label}
+          </InputLabel>
+        )}
         <TextField
           id={id}
           inputRef={ref}
@@ -20,6 +24,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           value={value ?? ''}
           helperText={helperText}
           placeholder={placeholder}
+          sx={inputFieldStyles.input}
           slotProps={{
             input: {
               startAdornment: startAdornment && (

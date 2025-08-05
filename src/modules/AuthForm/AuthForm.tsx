@@ -1,27 +1,37 @@
-import { Button, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoginMutation, useRegisterMutation } from './api/auth.api';
 import { useForm } from 'react-hook-form';
 import type { AuthFormValues } from './interfaces/AuthFormValues.interface';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authValidation } from './utils/validation.utils';
-import { FormInput } from '@/components';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { authFormStyles } from './AuthForm.styles';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useNavigate } from 'react-router';
+import { Headling, PrimaryButton } from '@/ui';
+import { FormInput } from '@/components';
 
 export const AuthForm: FC = () => {
   const { t } = useTranslation();
   const [isRegister, setIsRegister] = useState(false);
-  const [login, { error: loginError, reset: resetLogin }] = useLoginMutation();
-  const [register, { error: registerError, reset: resetRegister }] = useRegisterMutation();
+  const [showPass, setShowPass] = useState(false);
+  const navigate = useNavigate();
 
-  const toggleAuthMode = () => {
-    setIsRegister((prev) => !prev);
-    reset();
-    resetLogin();
-    resetRegister();
-  };
+  const [login, { error: loginError, reset: resetLogin, isLoading: isLoginLoading }] =
+    useLoginMutation();
+  const [
+    register,
+    {
+      error: registerError,
+      reset: resetRegister,
+      isLoading: isRegisterLoading,
+      isSuccess: isRegisterSuccess,
+    },
+  ] = useRegisterMutation();
 
   const {
     control,
@@ -30,7 +40,29 @@ export const AuthForm: FC = () => {
     formState: { errors },
   } = useForm<AuthFormValues>({
     resolver: yupResolver(authValidation(t, isRegister)),
+    mode: 'onBlur',
   });
+
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      setIsRegister(false);
+      reset();
+      resetRegister();
+      setShowPass(false);
+    }
+  }, [isRegisterSuccess, resetRegister, reset]);
+
+  const toggleAuthMode = () => {
+    setIsRegister((prev) => !prev);
+    setShowPass(false);
+    reset();
+    resetLogin();
+    resetRegister();
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPass((prev) => !prev);
+  };
 
   const errorMessage = ((loginError || registerError) as FetchBaseQueryError)?.data as {
     message?: string;
@@ -41,13 +73,14 @@ export const AuthForm: FC = () => {
       await register({ username: data.username, password: data.password }).unwrap();
     } else {
       await login({ username: data.username, password: data.password }).unwrap();
+      navigate('/');
     }
   };
 
   return (
-    <Box>
-      <Typography>{t(isRegister ? 'auth.registerTitle' : 'auth.loginTitle')}</Typography>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Box sx={authFormStyles.container}>
+      <Headling>{t(isRegister ? 'auth.registerTitle' : 'auth.loginTitle')}</Headling>
+      <Box sx={authFormStyles.form} component="form" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           name="username"
           label={t('labels.username')}
@@ -61,9 +94,14 @@ export const AuthForm: FC = () => {
           label={t('labels.password')}
           placeholder={t('placeholders.password')}
           control={control}
-          type="password"
+          type={showPass ? 'text' : 'password'}
           error={!!errors.password}
           helperText={errors.password?.message}
+          endAdornment={
+            <IconButton edge="end" onClick={handleTogglePasswordVisibility}>
+              {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+            </IconButton>
+          }
         />
         {isRegister && (
           <FormInput
@@ -71,23 +109,26 @@ export const AuthForm: FC = () => {
             label={t('labels.confirmPassword')}
             placeholder={t('placeholders.confirmPassword')}
             control={control}
-            type="password"
+            type={showPass ? 'text' : 'password'}
             error={!!errors.confirmPassword}
             helperText={errors.confirmPassword?.message}
+            endAdornment={
+              <IconButton edge="end" onClick={handleTogglePasswordVisibility}>
+                {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            }
           />
         )}
-        <Button type="submit" variant="contained" color="primary">
+        <PrimaryButton type="submit" disabled={isLoginLoading || isRegisterLoading}>
           {t(isRegister ? 'auth.registerTitle' : 'auth.loginTitle')}
-        </Button>
+        </PrimaryButton>
       </Box>
       {(loginError || registerError) && (
-        <Typography color="error" sx={{ mt: 2 }}>
-          {errorMessage.message}
-        </Typography>
+        <Typography sx={authFormStyles.errorMessage}>{errorMessage.message}</Typography>
       )}
-      <Typography variant="body2" align="center">
+      <Typography sx={authFormStyles.toggleLink}>
         {t(isRegister ? 'auth.hasAccount' : 'auth.noAccount')}{' '}
-        <Typography component="span" color="primary" onClick={toggleAuthMode}>
+        <Typography component="span" onClick={toggleAuthMode}>
           {t(isRegister ? 'auth.loginLink' : 'auth.registerLink')}
         </Typography>
       </Typography>
