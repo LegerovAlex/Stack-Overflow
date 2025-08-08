@@ -1,14 +1,23 @@
 import { useGetCurrentUserQuery } from '@/modules/AuthForm/api/auth.api';
 import { RoutesPaths } from '@/routes/routeesPaths';
+import type { AppState } from '@/types/store.types';
 import { Spinner } from '@/ui';
-import type { FC, PropsWithChildren } from 'react';
-import { Navigate } from 'react-router';
+import type { FC } from 'react';
+import { useSelector } from 'react-redux';
 
-export const AuthProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
-  const { data: user, isLoading } = useGetCurrentUserQuery();
+import { Navigate } from 'react-router';
+import type { AuthProtectedRouteProps } from './AuthPtotectedRoute.props';
+
+export const AuthProtectedRoute: FC<AuthProtectedRouteProps> = ({
+  children,
+  requireAuth = false,
+}) => {
+  const { isLoading } = useGetCurrentUserQuery();
+
+  const { isAuthenticated, user } = useSelector((state: AppState) => state.auth);
 
   if (isLoading) return <Spinner />;
-  if (user) {
+  if (isAuthenticated && user && requireAuth) {
     return <Navigate to={`${RoutesPaths.ROOT}`} replace />;
   }
   return children;

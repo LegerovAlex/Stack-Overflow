@@ -14,6 +14,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router';
 import { Headling, PrimaryButton } from '@/ui';
 import { FormInput } from '@/components';
+import { RoutesPaths } from '@/routes/routeesPaths';
 
 export const AuthForm: FC = () => {
   const { t } = useTranslation();
@@ -73,7 +74,7 @@ export const AuthForm: FC = () => {
       await register({ username: data.username, password: data.password }).unwrap();
     } else {
       await login({ username: data.username, password: data.password }).unwrap();
-      navigate('/');
+      navigate(RoutesPaths.ROOT);
     }
   };
 
@@ -120,7 +121,7 @@ export const AuthForm: FC = () => {
           />
         )}
         <PrimaryButton type="submit" disabled={isLoginLoading || isRegisterLoading}>
-          {t(isRegister ? 'auth.registerTitle' : 'auth.loginTitle')}
+          {t(isRegister ? 'button.register' : 'button.login')}
         </PrimaryButton>
       </Box>
       {(loginError || registerError) && (

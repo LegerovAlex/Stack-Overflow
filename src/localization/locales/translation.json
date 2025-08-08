@@ -11,13 +11,19 @@
     "confirmPassword": "Confirm your password"
   },
 
+   "button": {
+     "login": "Sign In",
+     "register": "Sign Up",
+     "logout": "Logout"
+   },
+
   "auth": {
     "loginTitle": "Login",
     "registerTitle": "Register",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "registerLink": "Sign up",
-    "loginLink": "Log in",
+    "loginLink": "Sign in",
     "errors": {
       "required": "This field is required",
       "minLength": "Must be at least {{count}} characters",
@@ -27,5 +33,19 @@
       "confirmPasswordRequired": "Confirm password is required",
       "confirmPasswordMismatch": "Passwords must match"
     }
+  },
+  "navigation": {
+    "home": "Home",
+    "account": "My Account",
+    "post": "Post snippet",
+    "snippets": "My snippets",
+    "questions": "Questions",
+    "users": "Users"
+  },
+
+  "header": {
+     "title": "Stack"
   }
+
+   
 }

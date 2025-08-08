@@ -1,12 +1,17 @@
 export const colors = {
   background: '#ffffff',
+  backgroundBlack: '#000000',
+  backgroundBlackHover: '#1a1a1a',
   adornment: '#6b7280',
 
   textPrimary: '#1d1d1f',
   textSecondary: '#4b4b4f',
+  textWhite: '#ffffff',
+  textWhiteHover: '#c4c4cbff',
 
   placeholder: '#8e8e93',
   border: '#d1d5db',
+  borderBlack: '#000000',
   borderHover: '#a0a0a5',
   borderFocus: '#191a1dff',
   label: '#111827',
