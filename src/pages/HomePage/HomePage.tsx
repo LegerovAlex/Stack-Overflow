@@ -1,10 +1,6 @@
-import { SnippetCard } from '@/components';
+import { Snippets } from '@/modules';
 import type { FC } from 'react';
 
 export const HomePage: FC = () => {
-  return (
-    <>
-      <SnippetCard />
-    </>
-  );
+  return <Snippets />;
 };

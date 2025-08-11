@@ -42,10 +42,13 @@
     "questions": "Questions",
     "users": "Users"
   },
-
   "header": {
      "title": "Stack"
+  },
+  "snippets": {
+    "errors": {
+        "loadFailed": "Failed to load snippets"
+    }
   }
-
    
 }

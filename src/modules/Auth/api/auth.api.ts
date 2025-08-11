@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '@/consts/api.consts';
 import type { AuthParams } from './auth.interface';
 import { authAction } from '@/store/Auth/authSlice';
-import type { UserResponse } from '@/store/Auth/auth.interface';
+import type { User as UserResponse } from '@/store/Auth/auth.interface';
 
 export const authApi = createApi({
   reducerPath: 'authApi',

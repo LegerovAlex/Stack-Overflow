@@ -3,3 +3,4 @@ export * from './Headling';
 export * from './Spinner';
 export * from './Button';
 export * from './NavItem';
+export * from './SnippetActions';

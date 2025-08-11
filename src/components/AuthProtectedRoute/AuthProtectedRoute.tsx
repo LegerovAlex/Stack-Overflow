@@ -1,4 +1,4 @@
-import { useGetCurrentUserQuery } from '@/modules/AuthForm/api/auth.api';
+import { useGetCurrentUserQuery } from '@/modules/Auth/api/auth.api';
 import { RoutesPaths } from '@/routes/routeesPaths';
 import type { AppState } from '@/types/store.types';
 import { Spinner } from '@/ui';

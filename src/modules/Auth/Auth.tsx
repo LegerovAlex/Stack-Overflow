@@ -4,11 +4,11 @@ import { useEffect, useState, type FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoginMutation, useRegisterMutation } from './api/auth.api';
 import { useForm } from 'react-hook-form';
-import type { AuthFormValues } from './interfaces/AuthFormValues.interface';
+import type { AuthValues } from './interfaces/AuthValues.interface';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authValidation } from './utils/validation.utils';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { authFormStyles } from './AuthForm.styles';
+import { authFormStyles } from './Auth.styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router';
@@ -16,7 +16,7 @@ import { Headling, PrimaryButton } from '@/ui';
 import { FormInput } from '@/components';
 import { RoutesPaths } from '@/routes/routeesPaths';
 
-export const AuthForm: FC = () => {
+export const Auth: FC = () => {
   const { t } = useTranslation();
   const [isRegister, setIsRegister] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -39,7 +39,7 @@ export const AuthForm: FC = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<AuthFormValues>({
+  } = useForm<AuthValues>({
     resolver: yupResolver(authValidation(t, isRegister)),
     mode: 'onBlur',
   });
@@ -69,7 +69,7 @@ export const AuthForm: FC = () => {
     message?: string;
   };
 
-  const onSubmit = async (data: AuthFormValues) => {
+  const onSubmit = async (data: AuthValues) => {
     if (isRegister) {
       await register({ username: data.username, password: data.password }).unwrap();
     } else {

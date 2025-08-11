@@ -31,19 +31,4 @@ export const snippetCardStyles = {
     borderRadius: '8px',
     fontSize: '14px',
   },
-  actions: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  actionGroup: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 1,
-  },
-
-  actionItem: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 1,
-  },
 } satisfies SxThemeProps;
