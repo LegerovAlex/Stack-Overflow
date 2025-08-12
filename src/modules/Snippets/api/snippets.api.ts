@@ -1,6 +1,7 @@
 import { BASE_URL } from '@/consts/api.consts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { SnippetsResponse } from './snippets.interface';
+import { type MarkSnippetRequest, type ApiSnippetsResponse } from './snippets.interface';
+import { snippetsAction } from './snippetsSlice';
 
 export const snippetsApi = createApi({
   reducerPath: 'snippetsApi',
@@ -8,25 +9,21 @@ export const snippetsApi = createApi({
     baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
-    getSnippets: builder.query<SnippetsResponse, void>({
+    getSnippets: builder.query<ApiSnippetsResponse, void>({
       query: () => '/snippets',
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(snippetsAction.setSnippets(data.data.data));
+      },
     }),
-    likeSnippet: builder.mutation<void, string>({
-      query: (id) => ({
+    markSnippet: builder.mutation<void, MarkSnippetRequest>({
+      query: ({ id, mark }) => ({
         url: `/snippets/${id}/mark`,
         method: 'POST',
-        body: { mark: 'like' },
-      }),
-    }),
-    dislikeSnippet: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `/snippets/${id}/mark`,
-        method: 'POST',
-        body: { mark: 'dislike' },
+        body: { mark },
       }),
     }),
   }),
 });
 
-export const { useGetSnippetsQuery, useLikeSnippetMutation, useDislikeSnippetMutation } =
-  snippetsApi;
+export const { useGetSnippetsQuery, useMarkSnippetMutation } = snippetsApi;

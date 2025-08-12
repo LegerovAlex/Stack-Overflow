@@ -12,6 +12,7 @@ export const SnippetCard: FC<SnippetCardProps> = ({
   onComment,
   onDislike,
   onLike,
+  userMarkType,
   username,
   language,
   code,
@@ -32,6 +33,7 @@ export const SnippetCard: FC<SnippetCardProps> = ({
         <Typography sx={snippetCardStyles.codeBlock}>{code}</Typography>
       </CardContent>
       <SnippetActions
+        userMarkType={userMarkType}
         likes={likes}
         dislikes={dislikes}
         comments={comments}

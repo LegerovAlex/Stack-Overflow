@@ -4,6 +4,8 @@ import { CardActions, IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import CommentIcon from '@mui/icons-material/Comment';
 import { snippetActionsStyle } from './SnippetActions.styles';
 
@@ -12,6 +14,7 @@ export const SnippetActions: FC<SnippetActionsProps> = ({
   dislikes,
   comments,
   onComment,
+  userMarkType,
   onLike,
   onDislike,
   id,
@@ -33,13 +36,13 @@ export const SnippetActions: FC<SnippetActionsProps> = ({
       <Box sx={snippetActionsStyle.actionGroup}>
         <Box sx={snippetActionsStyle.actionItem}>
           <IconButton onClick={handleLike}>
-            <ThumbUpOffAltIcon />
+            {userMarkType === 'like' ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />}
           </IconButton>
           <Typography>{likes}</Typography>
         </Box>
         <Box sx={snippetActionsStyle.actionItem}>
           <IconButton onClick={handleDislike}>
-            <ThumbDownOffAltIcon />
+            {userMarkType === 'dislike' ? <ThumbDownIcon /> : <ThumbDownOffAltIcon />}
           </IconButton>
           <Typography>{dislikes}</Typography>
         </Box>

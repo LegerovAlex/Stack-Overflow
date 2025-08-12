@@ -1,27 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { SnippetList } from './components/SnippetList/SnippetList';
-import {
-  useDislikeSnippetMutation,
-  useGetSnippetsQuery,
-  useLikeSnippetMutation,
-} from './api/snippets.api';
 import { Spinner } from '@/ui';
-import { mapSnippetsToCards } from './utils/mapSnippetsToCards';
+import { useSnippets } from './hooks/useSnippets';
 
 export const Snippets = () => {
   const { t } = useTranslation();
-  const { data: snippets, isLoading, isError } = useGetSnippetsQuery();
-  const [likeSnippet] = useLikeSnippetMutation();
-  const [dislikeSnippet] = useDislikeSnippetMutation();
-
-  const items = mapSnippetsToCards(snippets?.data || [], likeSnippet, dislikeSnippet, (id) =>
-    console.log('comment', id),
-  );
-
+  const { snippets, isLoading, isError } = useSnippets();
   return (
     <>
-      {isLoading ? <Spinner /> : <SnippetList items={items} />}
+      {isLoading ? <Spinner /> : <SnippetList items={snippets} />}
       {isError && <Typography>{t('snippets.errors.loadFailed')}</Typography>}
     </>
   );

@@ -4,6 +4,7 @@ import { AuthPage } from '@/pages/AuthPage/AuthPage';
 import { HomePage } from '@/pages/HomePage/HomePage';
 import { AuthProtectedRoute } from '@/components/AuthProtectedRoute/AuthProtectedRoute';
 import { MainLayout } from '@/layouts';
+import { SnippetPage } from '@/pages/SnippetPage/SnippetPage';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: RoutesPaths.SNIPPET,
+        element: <SnippetPage />,
       },
       {
         path: RoutesPaths.ACCOUNT,
