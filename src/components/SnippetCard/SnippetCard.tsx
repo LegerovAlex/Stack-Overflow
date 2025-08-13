@@ -4,20 +4,20 @@ import { snippetCardStyles } from './SnippetCard.styles';
 import { SnippetActions } from '@/ui';
 import { type FC } from 'react';
 import type { SnippetCardProps } from './SnippetCard.props';
+import { useSnippets } from '@/modules/Snippets/hooks/useSnippets';
 
 export const SnippetCard: FC<SnippetCardProps> = ({
   likes,
   comments,
   dislikes,
-  onComment,
-  onDislike,
-  onLike,
   userMarkType,
   username,
   language,
   code,
   id,
 }) => {
+  const { handleLike, handleComment } = useSnippets();
+
   return (
     <Card sx={snippetCardStyles.card}>
       <CardHeader
@@ -37,9 +37,9 @@ export const SnippetCard: FC<SnippetCardProps> = ({
         likes={likes}
         dislikes={dislikes}
         comments={comments}
-        onLike={onLike}
-        onDislike={onDislike}
-        onComment={onComment}
+        onLike={handleLike(id, userMarkType || 'none', 'like')}
+        onDislike={handleLike(id, userMarkType || 'none', 'dislike')}
+        onComment={handleComment(id)}
         id={id}
       />
     </Card>

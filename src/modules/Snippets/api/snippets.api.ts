@@ -1,6 +1,10 @@
 import { BASE_URL } from '@/consts/api.consts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { type MarkSnippetRequest, type ApiSnippetsResponse } from './snippets.interface';
+import {
+  type ApiSnippetResponce,
+  type ApiSnippetsResponse,
+  type MarkSnippetRequest,
+} from './snippets.interface';
 import { snippetsAction } from './snippetsSlice';
 
 export const snippetsApi = createApi({
@@ -16,6 +20,13 @@ export const snippetsApi = createApi({
         dispatch(snippetsAction.setSnippets(data.data.data));
       },
     }),
+    getSnippet: builder.query<ApiSnippetResponce, string>({
+      query: (id) => `/snippets/${id}`,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(snippetsAction.setSnippet(data.data));
+      },
+    }),
     markSnippet: builder.mutation<void, MarkSnippetRequest>({
       query: ({ id, mark }) => ({
         url: `/snippets/${id}/mark`,
@@ -26,4 +37,4 @@ export const snippetsApi = createApi({
   }),
 });
 
-export const { useGetSnippetsQuery, useMarkSnippetMutation } = snippetsApi;
+export const { useGetSnippetsQuery, useMarkSnippetMutation, useGetSnippetQuery } = snippetsApi;

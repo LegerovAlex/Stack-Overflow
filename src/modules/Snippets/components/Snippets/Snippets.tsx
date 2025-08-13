@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
-import { SnippetList } from './components/SnippetList/SnippetList';
+
 import { Spinner } from '@/ui';
-import { useSnippets } from './hooks/useSnippets';
+import { useSnippets } from '../../hooks/useSnippets';
+import { SnippetList } from '@/components';
 
 export const Snippets = () => {
   const { t } = useTranslation();

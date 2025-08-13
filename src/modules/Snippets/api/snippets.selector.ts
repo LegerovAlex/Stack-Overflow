@@ -1,13 +1,13 @@
 import type { AppState } from '@/types/store.types';
 import { createSelector } from '@reduxjs/toolkit';
-import type { SnippetCardData } from './snippets.interface';
+import type { SnippetCardProps } from '@/components';
 
 const selectSnippets = (state: AppState) => state.snippets.snippets;
 const selectUser = (state: AppState) => state.auth.user?.id;
 
 export const selectSnippetCardProps = createSelector(
   [selectSnippets, selectUser],
-  (snippets, currentUserId): SnippetCardData[] =>
+  (snippets, currentUserId): SnippetCardProps[] =>
     snippets.map((snippet) => {
       const userMark = snippet.marks.find((m) => m.user.id === currentUserId);
       return {

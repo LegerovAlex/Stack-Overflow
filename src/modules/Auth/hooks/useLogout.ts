@@ -1,21 +1,17 @@
-import { PrimaryButton } from '@/ui';
-import type { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useLogoutMutation } from '../../api/auth.api';
-import { useNavigate } from 'react-router';
-import { RoutesPaths } from '@/routes/routeesPaths';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useLogoutMutation } from '../api/auth.api';
 import type { AppState } from '@/types/store.types';
 import { authAction } from '@/store/Auth/authSlice';
+import { RoutesPaths } from '@/routes/routeesPaths';
 
-export const LogoutButton: FC = () => {
-  const { t } = useTranslation();
+export const useLogout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [logout, { isLoading }] = useLogoutMutation();
   const { isAuthenticated, user } = useSelector((state: AppState) => state.auth);
 
-  const handleClick = async () => {
+  const handleLogout = async () => {
     if (user && isAuthenticated) {
       await logout().unwrap();
       dispatch(authAction.clearUser());
@@ -26,9 +22,9 @@ export const LogoutButton: FC = () => {
     }
   };
 
-  return (
-    <PrimaryButton disabled={isLoading} onClick={handleClick}>
-      {isAuthenticated ? t('button.logout') : t('button.login')}
-    </PrimaryButton>
-  );
+  return {
+    handleLogout,
+    isLoading,
+    isAuthenticated,
+  };
 };

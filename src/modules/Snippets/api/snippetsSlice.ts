@@ -4,10 +4,12 @@ import type { MarkType } from '@/types/snippets.types';
 
 interface SnippetsState {
   snippets: Snippet[];
+  snippet: Snippet | null;
 }
 
 const initialState: SnippetsState = {
   snippets: [],
+  snippet: null,
 };
 
 const snippetsSlice = createSlice({
@@ -23,28 +25,39 @@ const snippetsSlice = createSlice({
       action: PayloadAction<{ snippetId: string; mark: MarkType; userId: string }>,
     ) => {
       const { snippetId, mark, userId } = action.payload;
-      const snippet = state.snippets.find((s) => s.id === snippetId);
-      if (!snippet) return;
 
-      const existingMarkIndex = snippet.marks.findIndex((m) => m.user.id === userId);
+      const updateMarks = (snippet?: Snippet | null) => {
+        if (!snippet) return;
+        const existingMarkIndex = snippet.marks.findIndex((m) => m.user.id === userId);
 
-      if (mark === 'none') {
-        if (existingMarkIndex !== -1) {
-          snippet.marks.splice(existingMarkIndex, 1);
+        if (mark === 'none') {
+          if (existingMarkIndex !== -1) {
+            snippet.marks.splice(existingMarkIndex, 1);
+          }
+          return;
         }
-        return;
-      }
 
-      if (existingMarkIndex === -1) {
-        snippet.marks.push({
-          id: '',
-          type: mark,
-          user: { id: userId, username: '', role: 'user' },
-        });
-        return;
-      }
+        if (existingMarkIndex === -1) {
+          snippet.marks.push({
+            id: '',
+            type: mark,
+            user: { id: userId, username: '', role: 'user' },
+          });
+        } else {
+          snippet.marks[existingMarkIndex].type = mark;
+        }
+      };
 
-      snippet.marks[existingMarkIndex].type = mark;
+      const snippetInList = state.snippets.find((s) => s.id === snippetId);
+      updateMarks(snippetInList);
+
+      if (state.snippet?.id === snippetId) {
+        updateMarks(state.snippet);
+      }
+    },
+
+    setSnippet: (state, action: PayloadAction<Snippet>) => {
+      state.snippet = action.payload;
     },
   },
 });

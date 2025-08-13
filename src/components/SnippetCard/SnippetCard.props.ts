@@ -1,6 +1,11 @@
-import type { SnippetActionsProps } from '@/ui';
+import type { MarkType } from '@/types/snippets.types';
 
-export interface SnippetCardProps extends SnippetActionsProps {
+export interface SnippetCardProps {
+  id: string;
+  likes: number;
+  dislikes: number;
+  comments: number;
+  userMarkType?: MarkType;
   username: string;
   language: string;
   code: string;

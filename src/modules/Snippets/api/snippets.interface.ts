@@ -1,4 +1,3 @@
-import type { SnippetCardProps } from '@/components';
 import type { User } from '@/store/Auth/auth.interface';
 import type { MarkType } from '@/types/snippets.types';
 
@@ -16,6 +15,7 @@ export interface MarkSnippetRequest {
 export interface Comment {
   id: string;
   content: string;
+  user: User;
 }
 
 export interface Snippet {
@@ -35,4 +35,6 @@ export interface ApiSnippetsResponse {
   data: SnippetsResponse;
 }
 
-export type SnippetCardData = Omit<SnippetCardProps, 'onLike' | 'onDislike' | 'onComment'>;
+export interface ApiSnippetResponce {
+  data: Snippet;
+}

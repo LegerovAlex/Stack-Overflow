@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: RoutesPaths.SNIPPET,
+        path: `${RoutesPaths.SNIPPET}/:id`,
         element: <SnippetPage />,
       },
       {

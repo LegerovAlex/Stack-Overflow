@@ -3,12 +3,14 @@ import { AppBar, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTranslation } from 'react-i18next';
 import type { FC } from 'react';
-import { LogoutButton } from '@/modules';
 import { headerStyles } from './Header.styles';
-import { Headling } from '@/ui';
+import { Headling, PrimaryButton } from '@/ui';
+import { useLogout } from '@/modules/Auth/hooks/useLogout';
 
 export const Header: FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { t } = useTranslation();
+
+  const { handleLogout, isAuthenticated, isLoading } = useLogout();
 
   return (
     <AppBar position="static" sx={headerStyles.appBar}>
@@ -17,7 +19,9 @@ export const Header: FC<HeaderProps> = ({ onToggleSidebar }) => {
           <MenuIcon fontSize="large" />
         </IconButton>
         <Headling>{t('header.title')}</Headling>
-        <LogoutButton />
+        <PrimaryButton onClick={handleLogout} disabled={isLoading}>
+          {isAuthenticated ? t('button.logout') : t('button.login')}
+        </PrimaryButton>
       </Toolbar>
     </AppBar>
   );
