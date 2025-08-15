@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Snippet } from './snippets.interface';
+import type { Comment, Snippet } from './snippets.interface';
 import type { MarkType } from '@/types/snippets.types';
 
 interface SnippetsState {
@@ -19,7 +19,6 @@ const snippetsSlice = createSlice({
     setSnippets: (state, action: PayloadAction<Snippet[]>) => {
       state.snippets = action.payload;
     },
-
     updateMarkLocal: (
       state,
       action: PayloadAction<{ snippetId: string; mark: MarkType; userId: string }>,
@@ -58,6 +57,19 @@ const snippetsSlice = createSlice({
 
     setSnippet: (state, action: PayloadAction<Snippet>) => {
       state.snippet = action.payload;
+    },
+    updateSnippetComment: (
+      state,
+      action: PayloadAction<{ snippetId: string; comment: Comment }>,
+    ) => {
+      const { snippetId, comment } = action.payload;
+
+      if (state.snippet?.id === snippetId) {
+        state.snippet.comments.push(comment);
+      }
+
+      const snippets = state.snippets.find((s) => s.id === snippetId);
+      snippets?.comments.push(comment);
     },
   },
 });

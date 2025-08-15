@@ -12,10 +12,19 @@ export interface MarkSnippetRequest {
   mark: MarkType;
 }
 
+export interface AddCommentRequest {
+  snippetId: string;
+  content: string;
+}
+
 export interface Comment {
   id: string;
   content: string;
   user: User;
+}
+
+export interface ApiCommentResponce {
+  data: Comment;
 }
 
 export interface Snippet {

@@ -1,6 +1,8 @@
 import { BASE_URL } from '@/consts/api.consts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
+  type AddCommentRequest,
+  type ApiCommentResponce,
   type ApiSnippetResponce,
   type ApiSnippetsResponse,
   type MarkSnippetRequest,
@@ -34,7 +36,19 @@ export const snippetsApi = createApi({
         body: { mark },
       }),
     }),
+    addComment: builder.mutation<ApiCommentResponce, AddCommentRequest>({
+      query: (body) => ({
+        url: '/comments',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetSnippetsQuery, useMarkSnippetMutation, useGetSnippetQuery } = snippetsApi;
+export const {
+  useGetSnippetsQuery,
+  useMarkSnippetMutation,
+  useGetSnippetQuery,
+  useAddCommentMutation,
+} = snippetsApi;

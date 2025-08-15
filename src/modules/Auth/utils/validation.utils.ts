@@ -1,7 +1,7 @@
 import { NAME_REGEXP, PASSWORD_REGEXP } from '@/consts/regexps.consts';
 import type { TFunction } from 'i18next';
 import * as yup from 'yup';
-import type { AuthFormValues } from '../interfaces/AuthValues.interface';
+import type { AuthValues } from '../interfaces/AuthValues.interface';
 
 export function minMaxFieldValidation(
   t: TFunction,
@@ -36,12 +36,12 @@ export function confirmPasswordValidation(t: TFunction): yup.StringSchema<string
     .oneOf([yup.ref('password')], t('auth.errors.confirmPasswordMismatch'));
 }
 
-export function authValidation(t: TFunction, isRegister = false): yup.ObjectSchema<AuthFormValues> {
+export function authValidation(t: TFunction, isRegister = false): yup.ObjectSchema<AuthValues> {
   return yup
     .object({
       username: userNameValidation(t),
       password: passwordValidation(t),
       ...(isRegister ? { confirmPassword: confirmPasswordValidation(t) } : {}),
     })
-    .defined() as yup.ObjectSchema<AuthFormValues>;
+    .defined() as yup.ObjectSchema<AuthValues>;
 }

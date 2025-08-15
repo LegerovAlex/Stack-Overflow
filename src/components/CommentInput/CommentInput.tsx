@@ -1,13 +1,25 @@
 import { Box, IconButton, TextField } from '@mui/material';
-import type { FC } from 'react';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { commentInputStyles } from './CommentInput.styles';
+import type { FieldValues } from 'react-hook-form';
+import type { CommentInputProps } from './CommentInput.props';
 
-export const CommentInput: FC = () => {
+export const CommentInput = <T extends FieldValues>({
+  register,
+  onSubmit,
+  fieldName,
+  isSubmitting,
+}: CommentInputProps<T>) => {
   return (
-    <Box sx={commentInputStyles.form} component="form">
-      <TextField multiline rows={3} sx={commentInputStyles.input} placeholder="Add Comment" />
-      <IconButton sx={commentInputStyles.button}>
+    <Box sx={commentInputStyles.form} component="form" onSubmit={onSubmit}>
+      <TextField
+        multiline
+        rows={3}
+        sx={commentInputStyles.input}
+        placeholder="Add Comment"
+        {...register(fieldName, { required: true })}
+      />
+      <IconButton sx={commentInputStyles.button} type="submit" disabled={isSubmitting}>
         <AddCommentIcon />
       </IconButton>
     </Box>
