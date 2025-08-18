@@ -6,7 +6,6 @@ import { useLoginMutation, useRegisterMutation } from './api/auth.api';
 import { useForm } from 'react-hook-form';
 import type { AuthValues } from './interfaces/AuthValues.interface';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authValidation } from './utils/validation.utils';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { authFormStyles } from './Auth.styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -15,6 +14,7 @@ import { useNavigate } from 'react-router';
 import { Headling, PrimaryButton } from '@/ui';
 import { FormInput } from '@/components';
 import { RoutesPaths } from '@/routes/routeesPaths';
+import { authValidation } from '@/utils/validation.utils';
 
 export const Auth: FC = () => {
   const { t } = useTranslation();

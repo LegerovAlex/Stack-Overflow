@@ -2,21 +2,25 @@
   "labels": {
     "username": "Username",
     "password": "Password",
-    "confirmPassword": "Confirm Password"
+    "confirmPassword": "Confirm Password",
+    "changeUsername": "Change your username:",
+    "changePassword": "Change your password:"
   },
-
   "placeholders": {
     "username": "Enter your username",
+    "usernameNew": "New username",
     "password": "Enter your password",
+    "passwordOld": "Old password",
+    "passwordNew": "New password",
     "confirmPassword": "Confirm your password"
   },
-
-   "button": {
-     "login": "Sign In",
-     "register": "Sign Up",
-     "logout": "Logout"
-   },
-
+  "button": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "logout": "Logout",
+    "save": "Save",
+    "changePassword": "Change Password"
+  },
   "auth": {
     "loginTitle": "Login",
     "registerTitle": "Register",
@@ -43,12 +47,24 @@
     "users": "Users"
   },
   "header": {
-     "title": "Stack"
+    "title": "Stack"
   },
   "snippets": {
     "errors": {
-        "loadFailed": "Failed to load snippets"
+      "loadFailed": "Failed to load snippets"
     }
+  },
+  "account": {
+    "title": "Welcome",
+    "editProfile": "Edit your profile",
+    "user": {
+      "id": "Id:",
+      "role": "Role:"
+    },
+    "errors": {
+      "loginPrompt": "You need sign in for this page",
+      "loadFailed": "Failed to load profile"
+    }
+    
   }
-   
 }

@@ -5,6 +5,7 @@ import { HomePage } from '@/pages/HomePage/HomePage';
 import { AuthProtectedRoute } from '@/components/AuthProtectedRoute/AuthProtectedRoute';
 import { MainLayout } from '@/layouts';
 import { SnippetPage } from '@/pages/SnippetPage/SnippetPage';
+import { AccountPage } from '@/pages';
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
       },
       {
         path: RoutesPaths.ACCOUNT,
-        element: <>My Account</>,
+        element: <AccountPage />,
       },
       {
         path: RoutesPaths.POSTS,

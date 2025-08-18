@@ -1,4 +1,4 @@
-export * from './InputForm';
+export * from './FormInput';
 export * from './AuthProtectedRoute';
 export * from './NavList';
 export * from './SnippetCard';
@@ -6,3 +6,5 @@ export * from './SnippetList';
 export * from './CommentInput';
 export * from './CommentItem';
 export * from './CommentList';
+export * from './UserCard';
+export * from './EditForm';

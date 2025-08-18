@@ -1,7 +1,7 @@
 import { NAME_REGEXP, PASSWORD_REGEXP } from '@/consts/regexps.consts';
 import type { TFunction } from 'i18next';
 import * as yup from 'yup';
-import type { AuthValues } from '../interfaces/AuthValues.interface';
+import type { AuthValues } from '../modules/Auth/interfaces/AuthValues.interface';
 
 export function minMaxFieldValidation(
   t: TFunction,

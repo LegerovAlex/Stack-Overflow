@@ -1,4 +1,4 @@
-import type { User } from '@/store/Auth/auth.interface';
+import type { User } from '@/interfaces/api.interfaces';
 import type { MarkType } from '@/types/snippets.types';
 
 export interface Mark {
