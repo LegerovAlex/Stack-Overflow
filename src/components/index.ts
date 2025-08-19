@@ -7,4 +7,3 @@ export * from './CommentInput';
 export * from './CommentItem';
 export * from './CommentList';
 export * from './UserCard';
-export * from './EditForm';

@@ -8,8 +8,8 @@ export const selectAccountProps = createSelector([selectAccount], (account): Use
   if (!account) return null;
 
   return {
-    id: account?.id,
-    username: account?.username,
+    id: account.id,
+    username: account.username,
     role: account?.role,
   };
 });

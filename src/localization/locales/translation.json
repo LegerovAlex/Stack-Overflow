@@ -55,7 +55,8 @@
     }
   },
   "account": {
-    "title": "Welcome",
+    "title": "Welcome ",
+    "notLoggedIn": "Not logged in",
     "editProfile": "Edit your profile",
     "user": {
       "id": "Id:",

@@ -3,6 +3,7 @@ import { BASE_URL } from '@/consts/api.consts';
 import type { AuthParams } from './auth.interface';
 import { authAction } from '@/store/Auth/authSlice';
 import type { User as UserResponse } from '@/interfaces/api.interfaces';
+import { accountApi } from '@/modules/Account/api/account.api';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -44,6 +45,11 @@ export const authApi = createApi({
         url: '/auth/logout',
         method: 'POST',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(authApi.util.resetApiState());
+        dispatch(accountApi.util.resetApiState());
+      },
     }),
   }),
 });

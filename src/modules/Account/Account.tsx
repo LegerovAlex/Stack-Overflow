@@ -1,10 +1,11 @@
 import { Box } from '@mui/system';
 import { useAccount } from './hooks/useAccount';
 import { Typography } from '@mui/material';
-import { EditForm, UserCard } from '@/components';
+import { UserCard } from '@/components';
 import { accountStyles } from './Account.styles';
 import { useTranslation } from 'react-i18next';
 import { Spinner } from '@/ui';
+import { EditForm } from './components/EditForm';
 
 export const Account = () => {
   const { t } = useTranslation();

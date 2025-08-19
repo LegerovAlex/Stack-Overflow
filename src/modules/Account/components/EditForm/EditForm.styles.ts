@@ -26,4 +26,11 @@ export const editFormStyles = {
     justifyContent: 'center',
     gap: 10,
   },
+
+  errorMessage: {
+    color: colors.error,
+    fontSize: '15px',
+    marginTop: '15px',
+    textAlign: 'center',
+  },
 } satisfies SxThemeProps;
