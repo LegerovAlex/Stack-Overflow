@@ -6,6 +6,7 @@ import { accountStyles } from './Account.styles';
 import { useTranslation } from 'react-i18next';
 import { Spinner } from '@/ui';
 import { EditForm } from './components/EditForm';
+import { AccountStats } from './components/AccountStats';
 
 export const Account = () => {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ export const Account = () => {
         onDelete={deleteAccont}
         onLogout={handleLogout}
       />
+      <AccountStats id={account.id} />
       <EditForm />
     </Box>
   );

@@ -46,6 +46,18 @@
     "questions": "Questions",
     "users": "Users"
   },
+
+ "stats": {
+    "rating": "Rating",
+    "snippets": "Snippets",
+    "comments": "Comments",
+    "likes": "Likes",
+    "dislikes": "Dislikes",
+    "questions": "Questions",
+    "correctAnswers": "Correct Answers",
+    "regularAnswers": "Regular Answers"
+  },
+
   "header": {
     "title": "Stack"
   },
@@ -64,7 +76,8 @@
     },
     "errors": {
       "loginPrompt": "You need sign in for this page",
-      "loadFailed": "Failed to load profile"
+      "loadFailed": "Failed to load profile",
+      "statisticFailed": "Failed to load Account Statistic"
     }
     
   }

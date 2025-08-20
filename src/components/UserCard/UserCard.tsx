@@ -10,11 +10,11 @@ export const UserCard: FC<UserCardProps> = ({ id, role, username, onDelete, onLo
   const { t } = useTranslation();
 
   const handleLogoutClick = () => {
-    onLogout();
+    onLogout?.();
   };
 
   const handleDeleteClick = () => {
-    onDelete();
+    onDelete?.();
   };
 
   return (

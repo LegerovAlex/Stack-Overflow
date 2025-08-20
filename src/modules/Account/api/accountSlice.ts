@@ -1,12 +1,15 @@
 import type { User } from '@/interfaces/api.interfaces';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { Statistic } from './api.interface';
 
 interface AccountState {
   account: User | null;
+  statistic: Statistic | null;
 }
 
 const initialState: AccountState = {
   account: null,
+  statistic: null,
 };
 
 const accountSlice = createSlice({
@@ -18,6 +21,9 @@ const accountSlice = createSlice({
     },
     clearAccount: (state) => {
       state.account = null;
+    },
+    setStatistic: (state, action: PayloadAction<Statistic>) => {
+      state.statistic = action.payload;
     },
   },
 });

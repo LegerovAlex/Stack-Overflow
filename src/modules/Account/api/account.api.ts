@@ -2,6 +2,7 @@ import { BASE_URL } from '@/consts/api.consts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
   ApiAccountResponce,
+  StatisticResponse,
   UpdateAccountResponse,
   UpdatePasswordRequest,
   UpdateUsernameRequest,
@@ -48,6 +49,14 @@ export const accountApi = createApi({
     updatePassword: builder.mutation<UpdateAccountResponse, UpdatePasswordRequest>({
       query: (body) => ({ url: '/me/password', method: 'PATCH', body }),
     }),
+    getAccountStatistic: builder.query<{ data: StatisticResponse }, { id: string }>({
+      query: ({ id }) => `/users/${id}/statistic`,
+      keepUnusedDataFor: 0,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(accountAction.setStatistic(data.data.statistic));
+      },
+    }),
   }),
 });
 
@@ -56,4 +65,5 @@ export const {
   useDeleteAccountMutation,
   useUpdateUsernameMutation,
   useUpdatePasswordMutation,
+  useGetAccountStatisticQuery,
 } = accountApi;
