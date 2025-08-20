@@ -24,6 +24,7 @@ export const snippetsApi = createApi({
     }),
     getSnippet: builder.query<ApiSnippetResponce, string>({
       query: (id) => `/snippets/${id}`,
+      keepUnusedDataFor: 0,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         dispatch(snippetsAction.setSnippet(data.data));

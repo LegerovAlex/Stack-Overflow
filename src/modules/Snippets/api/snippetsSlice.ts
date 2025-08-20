@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Comment, Snippet } from './snippets.interface';
 import type { MarkType } from '@/types/snippets.types';
-import type { User } from '@/interfaces/api.interfaces';
 
 interface SnippetsState {
   snippets: Snippet[];
@@ -71,14 +70,6 @@ const snippetsSlice = createSlice({
 
       const snippets = state.snippets.find((s) => s.id === snippetId);
       snippets?.comments.push(comment);
-    },
-    updateUsernameInComments: (state, action: PayloadAction<User>) => {
-      const newUsername = action.payload;
-      state.snippet?.comments.forEach((comment) => {
-        if (comment.user.id === newUsername.id) {
-          comment.user.username = newUsername.username;
-        }
-      });
     },
   },
 });

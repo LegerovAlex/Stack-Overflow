@@ -1,22 +1,20 @@
 import { useSelector } from 'react-redux';
 import { selectAccountProps } from '../api/account.selector';
 import { useDeleteAccountMutation, useGetAccountQuery } from '../api/account.api';
-import type { AppState } from '@/types/store.types';
-import { useLogout } from '@/modules/Auth/hooks/useLogout';
+import { useCallback } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 export const useAccount = () => {
   const account = useSelector(selectAccountProps);
-  const { handleLogout } = useLogout();
+  const { handleLogout, isAuthenticated } = useAuth();
   const { isLoading, isError } = useGetAccountQuery();
 
   const [deleteAccountMutation] = useDeleteAccountMutation();
 
-  const isAuthenticated = useSelector((state: AppState) => state.auth.isAuthenticated);
-
-  const deleteAccont = async () => {
+  const deleteAccont = useCallback(async () => {
     handleLogout();
     await deleteAccountMutation().unwrap();
-  };
+  }, [handleLogout, deleteAccountMutation]);
 
   return {
     account,

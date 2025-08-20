@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import type { FC } from 'react';
 import { headerStyles } from './Header.styles';
 import { Headling, PrimaryButton } from '@/ui';
-import { useLogout } from '@/modules/Auth/hooks/useLogout';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Header: FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { t } = useTranslation();
 
-  const { handleLogout, isAuthenticated, isLoading } = useLogout();
+  const { handleLogout, isAuthenticated, isLoading } = useAuth();
 
   return (
     <AppBar position="static" sx={headerStyles.appBar}>

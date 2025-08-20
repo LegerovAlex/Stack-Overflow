@@ -1,33 +1,35 @@
 import type { MarkType } from '@/types/snippets.types';
-import type { AppState } from '@/types/store.types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { snippetsAction } from '../api/snippetsSlice';
 import { useMarkSnippetMutation } from '../api/snippets.api';
+import { useCallback } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 export const useSnippetMark = () => {
   const dispatch = useDispatch();
   const [markSnippet] = useMarkSnippetMutation();
-  const userId = useSelector((state: AppState) => state.auth.user?.id);
+  const { account } = useAuth();
 
-  const handleMark = async (
-    snippetId: string,
-    currentType: MarkType | undefined,
-    nextType: 'like' | 'dislike',
-  ) => {
-    if (!userId) return;
+  const userId = account?.id;
 
-    const newMark = currentType === nextType ? 'none' : nextType;
-    const prevMark = currentType ?? 'none';
+  const handleMark = useCallback(
+    async (snippetId: string, currentType: MarkType | undefined, nextType: 'like' | 'dislike') => {
+      if (!userId) return;
 
-    dispatch(snippetsAction.updateMarkLocal({ snippetId, mark: newMark, userId }));
+      const newMark = currentType === nextType ? 'none' : nextType;
+      const prevMark = currentType ?? 'none';
 
-    try {
-      await markSnippet({ id: snippetId, mark: newMark }).unwrap();
-    } catch (error) {
-      console.error(error);
-      dispatch(snippetsAction.updateMarkLocal({ snippetId, mark: prevMark, userId }));
-    }
-  };
+      dispatch(snippetsAction.updateMarkLocal({ snippetId, mark: newMark, userId }));
+
+      try {
+        await markSnippet({ id: snippetId, mark: newMark }).unwrap();
+      } catch (error) {
+        console.error(error);
+        dispatch(snippetsAction.updateMarkLocal({ snippetId, mark: prevMark, userId }));
+      }
+    },
+    [markSnippet, userId],
+  );
 
   return { handleMark };
 };

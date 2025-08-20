@@ -8,19 +8,28 @@ import type {
 } from './api.interface';
 import { accountAction } from './accountSlice';
 import { authAction } from '@/store/Auth/authSlice';
-import { snippetsAction } from '@/modules/Snippets/api/snippetsSlice';
 
 export const accountApi = createApi({
   reducerPath: 'accountApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
+    credentials: 'include',
   }),
+  tagTypes: ['Account'],
   endpoints: (builder) => ({
     getAccount: builder.query<ApiAccountResponce, void>({
       query: () => '/me',
+      providesTags: ['Account'],
+      keepUnusedDataFor: 0,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        dispatch(accountAction.setAccount(data.data));
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(accountAction.setAccount(data.data));
+          dispatch(authAction.setAuthenticated());
+        } catch {
+          dispatch(accountAction.clearAccount());
+          dispatch(authAction.clearAuthenticated());
+        }
       },
     }),
     deleteAccount: builder.mutation<void, void>({
@@ -28,19 +37,12 @@ export const accountApi = createApi({
         url: '/me',
         method: 'DELETE',
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(accountAction.setAccount(null));
-        dispatch(accountApi.util.resetApiState());
-      },
     }),
     updateUsername: builder.mutation<UpdateAccountResponse, UpdateUsernameRequest>({
       query: (body) => ({ url: '/me', method: 'PATCH', body }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         dispatch(accountAction.setAccount(data.data));
-        dispatch(authAction.setUser(data.data));
-        dispatch(snippetsAction.updateUsernameInComments(data.data));
       },
     }),
     updatePassword: builder.mutation<UpdateAccountResponse, UpdatePasswordRequest>({

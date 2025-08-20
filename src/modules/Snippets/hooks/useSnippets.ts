@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetSnippetsQuery } from '../api/snippets.api';
 import { selectSnippetCardProps } from '../api/snippets.selector';
@@ -12,17 +12,9 @@ export const useSnippets = () => {
   const { isLoading, isError } = useGetSnippetsQuery();
   const navigate = useNavigate();
 
-  const snippetsFromSelector = useSelector(selectSnippetCardProps);
+  const snippets = useSelector(selectSnippetCardProps);
 
   const { handleMark } = useSnippetMark();
-
-  const snippets = useMemo(
-    () =>
-      snippetsFromSelector.map((snippet) => ({
-        ...snippet,
-      })),
-    [snippetsFromSelector],
-  );
 
   const handleLike = useCallback(
     (id: string, currentType: MarkType, nextType: 'like' | 'dislike') => () => {

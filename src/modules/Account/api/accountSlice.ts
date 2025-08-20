@@ -13,8 +13,11 @@ const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    setAccount: (state, action: PayloadAction<User | null>) => {
+    setAccount: (state, action: PayloadAction<User>) => {
       state.account = action.payload;
+    },
+    clearAccount: (state) => {
+      state.account = null;
     },
   },
 });

@@ -6,20 +6,21 @@ import { NavList } from '@/components';
 import type { SidebarProps } from './Sidebar.props';
 import type { FC } from 'react';
 import { sidebarStyles } from './Sidebar.styles';
-import type { AppState } from '@/types/store.types';
-import { useSelector } from 'react-redux';
+
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
   const { t } = useTranslation();
-  const { user, isAuthenticated } = useSelector((state: AppState) => state.auth);
+
+  const { isAuthenticated, account } = useAuth();
 
   return (
     <Drawer open={open} anchor="left" variant="persistent" sx={sidebarStyles.drawer}>
       <Box>
         <Box sx={sidebarStyles.header}>
           <Typography sx={sidebarStyles.profile}>
-            {isAuthenticated && user ? user.username : t('account.notLoggedIn')}
+            {isAuthenticated && account ? account.username : t('account.notLoggedIn')}
           </Typography>
           <IconButton onClick={onClose} sx={sidebarStyles.iconButton}>
             <KeyboardArrowLeftIcon />
