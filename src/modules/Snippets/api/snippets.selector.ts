@@ -5,6 +5,7 @@ import type { CommentItemProps, SnippetCardProps } from '@/components';
 const selectSnippets = (state: AppState) => state.snippets.snippets;
 const selectSnippet = (state: AppState) => state.snippets.snippet;
 const selectUser = (state: AppState) => state.account.account?.id;
+const selectLanguages = (state: AppState) => state.snippets.languages;
 
 export const selectSnippetCardProps = createSelector(
   [selectSnippets, selectUser],
@@ -53,3 +54,7 @@ export const selectSnippetCardPropsByID = createSelector(
     };
   },
 );
+
+export const selectLanguagesProps = createSelector([selectLanguages], (languages): string[] => [
+  ...languages,
+]);

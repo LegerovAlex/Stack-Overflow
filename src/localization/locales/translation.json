@@ -4,7 +4,8 @@
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "changeUsername": "Change your username:",
-    "changePassword": "Change your password:"
+    "changePassword": "Change your password:",
+    "codeSnippet": "Code of your snippet:"
   },
   "placeholders": {
     "username": "Enter your username",
@@ -12,14 +13,17 @@
     "password": "Enter your password",
     "passwordOld": "Old password",
     "passwordNew": "New password",
-    "confirmPassword": "Confirm your password"
+    "confirmPassword": "Confirm your password",
+    "writeCode": "Write your code..",
+    "addComment": "Add Comment"
   },
   "button": {
     "login": "Sign In",
     "register": "Sign Up",
     "logout": "Logout",
     "save": "Save",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "createSnippet": "Create Snippet"
   },
   "auth": {
     "loginTitle": "Login",
@@ -79,6 +83,20 @@
       "loadFailed": "Failed to load profile",
       "statisticFailed": "Failed to load Account Statistic"
     }
-    
+  },
+   "createSnippetForm": {
+    "title": "Create new Snippet",
+    "labels": {
+      "language": "Language",
+      "helperLabel": "Language of your snippet:",
+      "title": "Title"
+    },
+  
+     "errors": {
+        "required": "This field is required",
+         "languageRequired": "Please select a language",
+         "createSnippet": "Oops, snippet are not created"
   }
+  }
+
 }

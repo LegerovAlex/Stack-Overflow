@@ -34,7 +34,10 @@ export const Snippet = () => {
   };
 
   if (isLoading) return <Spinner />;
-  if (isError || !snippet) return <Typography>{t('snippets.errors.loadFailed')}</Typography>;
+  if (isError || !snippet)
+    return (
+      <Typography sx={snippetStyles.errorMessage}>{t('snippets.errors.loadFailed')}</Typography>
+    );
 
   return (
     <Box sx={snippetStyles.container}>
@@ -42,6 +45,7 @@ export const Snippet = () => {
       <CommentList comments={comments} />
       {isAuthenticated && (
         <CommentInput
+          placeholder={t('placeholders.addComment')}
           fieldName="content"
           register={register}
           onSubmit={handleSubmit(onSubmit)}

@@ -9,6 +9,7 @@ export const CommentInput = <T extends FieldValues>({
   onSubmit,
   fieldName,
   isSubmitting,
+  placeholder,
 }: CommentInputProps<T>) => {
   return (
     <Box sx={commentInputStyles.form} component="form" onSubmit={onSubmit}>
@@ -16,7 +17,7 @@ export const CommentInput = <T extends FieldValues>({
         multiline
         rows={3}
         sx={commentInputStyles.input}
-        placeholder="Add Comment"
+        placeholder={placeholder}
         {...register(fieldName, { required: true })}
       />
       <IconButton sx={commentInputStyles.button} type="submit" disabled={isSubmitting}>

@@ -2,7 +2,10 @@ import { BASE_URL } from '@/consts/api.consts';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   type AddCommentRequest,
+  type AddSnippetRequest,
   type ApiCommentResponce,
+  type ApiLanguageResponce,
+  type ApiSnippetCreateResponse,
   type ApiSnippetResponce,
   type ApiSnippetsResponse,
   type MarkSnippetRequest,
@@ -44,6 +47,20 @@ export const snippetsApi = createApi({
         body,
       }),
     }),
+    getLanguages: builder.query<ApiLanguageResponce, void>({
+      query: () => '/snippets/languages',
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(snippetsAction.setLanguages(data.data));
+      },
+    }),
+    addSnippet: builder.mutation<ApiSnippetCreateResponse, AddSnippetRequest>({
+      query: (body) => ({
+        url: '/snippets',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -52,4 +69,6 @@ export const {
   useMarkSnippetMutation,
   useGetSnippetQuery,
   useAddCommentMutation,
+  useGetLanguagesQuery,
+  useAddSnippetMutation,
 } = snippetsApi;

@@ -6,6 +6,7 @@ import { AuthProtectedRoute } from '@/components/AuthProtectedRoute/AuthProtecte
 import { MainLayout } from '@/layouts';
 import { SnippetPage } from '@/pages/SnippetPage/SnippetPage';
 import { AccountPage } from '@/pages';
+import { PostSnippetPage } from '@/pages/PostSnippetPage/PostSnippetPage';
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
       },
       {
         path: RoutesPaths.POSTS,
-        element: <>Post Snippet</>,
+        element: <PostSnippetPage />,
       },
       {
         path: RoutesPaths.SNIPPETS,

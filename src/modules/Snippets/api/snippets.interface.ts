@@ -47,3 +47,23 @@ export interface ApiSnippetsResponse {
 export interface ApiSnippetResponce {
   data: Snippet;
 }
+
+export interface ApiLanguageResponce {
+  data: string[];
+}
+
+export interface AddSnippetRequest {
+  code: string;
+  language: string;
+}
+
+export interface SnippetResponse {
+  id: number;
+  language: string;
+  code: string;
+  user: User;
+}
+
+export interface ApiSnippetCreateResponse {
+  data: SnippetResponse;
+}

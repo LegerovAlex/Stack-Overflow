@@ -5,11 +5,13 @@ import type { MarkType } from '@/types/snippets.types';
 interface SnippetsState {
   snippets: Snippet[];
   snippet: Snippet | null;
+  languages: string[];
 }
 
 const initialState: SnippetsState = {
   snippets: [],
   snippet: null,
+  languages: [],
 };
 
 const snippetsSlice = createSlice({
@@ -70,6 +72,9 @@ const snippetsSlice = createSlice({
 
       const snippets = state.snippets.find((s) => s.id === snippetId);
       snippets?.comments.push(comment);
+    },
+    setLanguages: (state, action: PayloadAction<string[]>) => {
+      state.languages = action.payload;
     },
   },
 });
