@@ -7,6 +7,7 @@ import { MainLayout } from '@/layouts';
 import { SnippetPage } from '@/pages/SnippetPage/SnippetPage';
 import { AccountPage } from '@/pages';
 import { PostSnippetPage } from '@/pages/PostSnippetPage/PostSnippetPage';
+import { MySnippetsPage } from '@/pages/MySnippetsPage/MySnippetsPage';
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: RoutesPaths.SNIPPETS,
-        element: <>My Snippets</>,
+        element: <MySnippetsPage />,
       },
       {
         path: RoutesPaths.QUESTIONS,

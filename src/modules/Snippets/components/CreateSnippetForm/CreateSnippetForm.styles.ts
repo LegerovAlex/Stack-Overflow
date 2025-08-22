@@ -6,7 +6,7 @@ export const createSnippetFormStyles = {
     display: 'flex',
     flexDirection: 'column',
     maxWidth: 1000,
-    alignItems: 'center',
+
     width: '100%',
   },
 
@@ -19,7 +19,7 @@ export const createSnippetFormStyles = {
   form: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+
     gap: 5,
     backgroundColor: colors.background,
     border: `1px solid ${colors.border}`,

@@ -4,26 +4,28 @@ import type { CommentItemProps, SnippetCardProps } from '@/components';
 
 const selectSnippets = (state: AppState) => state.snippets.snippets;
 const selectSnippet = (state: AppState) => state.snippets.snippet;
+const selectMySnippets = (state: AppState) => state.snippets.mySnippets;
 const selectUser = (state: AppState) => state.account.account?.id;
 const selectLanguages = (state: AppState) => state.snippets.languages;
 
-export const selectSnippetCardProps = createSelector(
-  [selectSnippets, selectUser],
-  (snippets, currentUserId): SnippetCardProps[] =>
-    snippets.map((snippet) => {
-      const userMark = snippet.marks.find((m) => m.user.id === currentUserId);
-      return {
-        id: snippet.id,
-        username: snippet.user.username,
-        language: snippet.language,
-        code: snippet.code,
-        likes: snippet.marks.filter((m) => m.type === 'like').length,
-        dislikes: snippet.marks.filter((m) => m.type === 'dislike').length,
-        comments: snippet.comments.length,
-        userMarkType: userMark?.type,
-      };
-    }),
-);
+export const selectSnippetCardProps = (isMySnippets = false) =>
+  createSelector(
+    [isMySnippets ? selectMySnippets : selectSnippets, selectUser],
+    (snippets, currentUserId): SnippetCardProps[] =>
+      snippets.map((snippet) => {
+        const userMark = snippet.marks.find((m) => m.user.id === currentUserId);
+        return {
+          id: snippet.id,
+          username: snippet.user.username,
+          language: snippet.language,
+          code: snippet.code,
+          likes: snippet.marks.filter((m) => m.type === 'like').length,
+          dislikes: snippet.marks.filter((m) => m.type === 'dislike').length,
+          comments: snippet.comments.length,
+          userMarkType: userMark?.type,
+        };
+      }),
+  );
 
 export const selectCommentsProps = createSelector(
   [selectSnippet],

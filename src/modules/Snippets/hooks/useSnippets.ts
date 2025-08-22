@@ -8,11 +8,15 @@ import { RoutesPaths } from '@/routes/routeesPaths';
 import { useSnippetMark } from './useSnippetMark';
 import type { MarkType } from '@/types/snippets.types';
 
-export const useSnippets = () => {
-  const { isLoading, isError } = useGetSnippetsQuery();
+export const useSnippets = (userId?: string) => {
+  const queryArgs = userId ? { userId } : undefined;
+  const isMySnippets = !!userId;
+
+  const { isLoading, isError, refetch } = useGetSnippetsQuery(queryArgs);
+
   const navigate = useNavigate();
 
-  const snippets = useSelector(selectSnippetCardProps);
+  const snippets = useSelector(selectSnippetCardProps(isMySnippets));
 
   const { handleMark } = useSnippetMark();
 
@@ -36,5 +40,6 @@ export const useSnippets = () => {
     snippets,
     isLoading,
     isError,
+    refetch,
   };
 };

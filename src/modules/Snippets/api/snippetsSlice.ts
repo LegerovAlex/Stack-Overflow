@@ -4,6 +4,7 @@ import type { MarkType } from '@/types/snippets.types';
 
 interface SnippetsState {
   snippets: Snippet[];
+  mySnippets: Snippet[];
   snippet: Snippet | null;
   languages: string[];
 }
@@ -11,6 +12,7 @@ interface SnippetsState {
 const initialState: SnippetsState = {
   snippets: [],
   snippet: null,
+  mySnippets: [],
   languages: [],
 };
 
@@ -20,6 +22,9 @@ const snippetsSlice = createSlice({
   reducers: {
     setSnippets: (state, action: PayloadAction<Snippet[]>) => {
       state.snippets = action.payload;
+    },
+    setMySnippets: (state, action: PayloadAction<Snippet[]>) => {
+      state.mySnippets = action.payload;
     },
     updateMarkLocal: (
       state,
@@ -50,7 +55,9 @@ const snippetsSlice = createSlice({
       };
 
       const snippetInList = state.snippets.find((s) => s.id === snippetId);
+      const snippetInMine = state.mySnippets.find((s) => s.id === snippetId);
       updateMarks(snippetInList);
+      updateMarks(snippetInMine);
 
       if (state.snippet?.id === snippetId) {
         updateMarks(state.snippet);
@@ -71,7 +78,9 @@ const snippetsSlice = createSlice({
       }
 
       const snippets = state.snippets.find((s) => s.id === snippetId);
+      const mySnippets = state.mySnippets.find((s) => s.id === snippetId);
       snippets?.comments.push(comment);
+      mySnippets?.comments.push(comment);
     },
     setLanguages: (state, action: PayloadAction<string[]>) => {
       state.languages = action.payload;

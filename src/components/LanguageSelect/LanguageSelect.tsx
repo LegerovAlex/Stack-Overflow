@@ -1,6 +1,6 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import type { LanguageSelectProps } from './LanguageSelect.props';
-import { Box, InputLabel, MenuItem, TextField } from '@mui/material';
+import { InputLabel, MenuItem, TextField } from '@mui/material';
 import { useId } from 'react';
 import { languageSelectStyles } from './LanguageSelect.styles';
 
@@ -18,7 +18,7 @@ export const LanguageSelect = <T extends FieldValues>({
       rules={rules}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <Box sx={languageSelectStyles.container}>
+        <>
           <InputLabel sx={languageSelectStyles.label} htmlFor={id}>
             {label}
           </InputLabel>
@@ -38,7 +38,7 @@ export const LanguageSelect = <T extends FieldValues>({
               </MenuItem>
             ))}
           </TextField>
-        </Box>
+        </>
       )}
     />
   );

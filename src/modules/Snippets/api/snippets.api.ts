@@ -17,12 +17,18 @@ export const snippetsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
+  tagTypes: ['Snippets'],
   endpoints: (builder) => ({
-    getSnippets: builder.query<ApiSnippetsResponse, void>({
-      query: () => '/snippets',
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+    getSnippets: builder.query<ApiSnippetsResponse, { userId?: string } | void>({
+      query: (body) => (body?.userId ? `/snippets?userId=${body.userId}` : '/snippets'),
+      providesTags: ['Snippets'],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
-        dispatch(snippetsAction.setSnippets(data.data.data));
+        if (body?.userId) {
+          dispatch(snippetsAction.setMySnippets(data.data.data));
+        } else {
+          dispatch(snippetsAction.setSnippets(data.data.data));
+        }
       },
     }),
     getSnippet: builder.query<ApiSnippetResponce, string>({
@@ -60,6 +66,7 @@ export const snippetsApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Snippets'],
     }),
   }),
 });

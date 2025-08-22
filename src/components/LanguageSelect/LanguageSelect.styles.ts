@@ -1,10 +1,6 @@
 import { colors } from '@/styles/colors.styles';
 import type { SxThemeProps } from '@/types/sx.types';
 export const languageSelectStyles = {
-  container: {
-    maxWidth: 1000,
-    width: '100%',
-  },
   input: {
     width: '100%',
     marginBottom: '16px',

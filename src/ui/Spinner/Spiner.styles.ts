@@ -6,7 +6,6 @@ export const spinnerStyles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
     backgroundColor: colors.background,
   },
   spinner: {

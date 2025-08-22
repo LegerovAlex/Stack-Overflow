@@ -6,8 +6,6 @@ export const codeInputStyles = {
     display: 'flex',
     flexDirection: 'column',
     gap: 1,
-    maxWidth: 1000,
-    width: '100%',
   },
   input: {
     borderRadius: '8px',
