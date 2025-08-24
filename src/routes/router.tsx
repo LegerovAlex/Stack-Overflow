@@ -1,13 +1,17 @@
 import { createBrowserRouter } from 'react-router';
 import { RoutesPaths } from './routeesPaths';
-import { AuthPage } from '@/pages/AuthPage/AuthPage';
-import { HomePage } from '@/pages/HomePage/HomePage';
-import { AuthProtectedRoute } from '@/components/AuthProtectedRoute/AuthProtectedRoute';
+import { AuthProtectedRoute } from '@/components';
 import { MainLayout } from '@/layouts';
-import { SnippetPage } from '@/pages/SnippetPage/SnippetPage';
-import { AccountPage } from '@/pages';
-import { PostSnippetPage } from '@/pages/PostSnippetPage/PostSnippetPage';
-import { MySnippetsPage } from '@/pages/MySnippetsPage/MySnippetsPage';
+import {
+  AccountPage,
+  AuthPage,
+  HomePage,
+  MySnippetsPage,
+  PostSnippetPage,
+  SnippetPage,
+  UserPage,
+  UsersPage,
+} from '@/pages';
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +48,11 @@ export const router = createBrowserRouter([
       },
       {
         path: RoutesPaths.USERS,
-        element: <>Users</>,
+        element: <UsersPage />,
+      },
+      {
+        path: `${RoutesPaths.USER}/:id`,
+        element: <UserPage />,
       },
     ],
   },

@@ -1,10 +1,4 @@
-export interface User {
-  id: string;
-  username: string;
-  role: 'user' | 'admin';
-}
-
-export interface Statistic {
+export interface UserStatsProps {
   snippetsCount: number;
   rating: number;
   commentsCount: number;

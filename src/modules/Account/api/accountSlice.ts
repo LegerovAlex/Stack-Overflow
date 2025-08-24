@@ -1,6 +1,5 @@
-import type { User } from '@/interfaces/api.interfaces';
+import type { Statistic, User } from '@/interfaces/api.interfaces';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Statistic } from './api.interface';
 
 interface AccountState {
   account: User | null;

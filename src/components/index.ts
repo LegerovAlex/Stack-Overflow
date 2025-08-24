@@ -9,3 +9,4 @@ export * from './CommentList';
 export * from './UserCard';
 export * from './LanguageSelect';
 export * from './CodeInput';
+export * from './UsersList';

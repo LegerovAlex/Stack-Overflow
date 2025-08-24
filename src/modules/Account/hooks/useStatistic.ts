@@ -1,11 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAccountStatisitcProps } from '../api/account.selector';
-import { useGetAccountStatisticQuery } from '../api/account.api';
+import { useGetUserStatisticsQuery } from '@/store/Statistics/Statistics.api';
+import { useEffect } from 'react';
+import { accountAction } from '../api/accountSlice';
 
 export const useStatistic = (id: string) => {
   const statistic = useSelector(selectAccountStatisitcProps);
 
-  const { isLoading, error } = useGetAccountStatisticQuery({ id });
+  const dispatch = useDispatch();
+
+  const { data, isLoading, error } = useGetUserStatisticsQuery({ id });
+
+  useEffect(() => {
+    if (data) {
+      dispatch(accountAction.setStatistic(data.data.statistic));
+    }
+  }, [data, dispatch]);
 
   return {
     statistic,

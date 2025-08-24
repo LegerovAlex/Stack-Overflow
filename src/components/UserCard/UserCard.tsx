@@ -6,16 +6,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { userCardStyles } from './UserCard.styles';
 
-export const UserCard: FC<UserCardProps> = ({ id, role, username, onDelete, onLogout }) => {
+export const UserCard: FC<UserCardProps> = ({
+  id,
+  role,
+  username,
+  onDelete,
+  onLogout,
+  showActions = true,
+}) => {
   const { t } = useTranslation();
-
-  const handleLogoutClick = () => {
-    onLogout?.();
-  };
-
-  const handleDeleteClick = () => {
-    onDelete?.();
-  };
 
   return (
     <Card sx={userCardStyles.card}>
@@ -32,14 +31,16 @@ export const UserCard: FC<UserCardProps> = ({ id, role, username, onDelete, onLo
             {role}
           </Typography>
         </CardContent>
-        <CardActions>
-          <IconButton onClick={handleLogoutClick}>
-            <LogoutIcon fontSize="large" />
-          </IconButton>
-          <IconButton onClick={handleDeleteClick}>
-            <DeleteOutlineIcon fontSize="large" />
-          </IconButton>
-        </CardActions>
+        {showActions && (
+          <CardActions>
+            <IconButton onClick={onLogout}>
+              <LogoutIcon fontSize="large" />
+            </IconButton>
+            <IconButton onClick={onDelete}>
+              <DeleteOutlineIcon fontSize="large" />
+            </IconButton>
+          </CardActions>
+        )}
       </Box>
     </Card>
   );

@@ -76,7 +76,8 @@
     "editProfile": "Edit your profile",
     "user": {
       "id": "Id:",
-      "role": "Role:"
+      "role": "Role:",
+      "username": "Username:"
     },
     "errors": {
       "loginPrompt": "You need sign in for this page",
@@ -96,7 +97,17 @@
         "required": "This field is required",
          "languageRequired": "Please select a language",
          "createSnippet": "Oops, snippet are not created"
+     }
+  },
+
+  "users": {
+    "title": "All Users",
+    "errors": {
+      "loadFailed": "Failed to load Users",
+       "loadFailedUser": "Failed to load User Profile"
+    }
   }
-  }
+
+  
 
 }

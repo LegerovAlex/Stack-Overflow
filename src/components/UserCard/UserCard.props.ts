@@ -4,4 +4,5 @@ export interface UserCardProps {
   role: string;
   onDelete?: () => void;
   onLogout?: () => void;
+  showActions?: boolean;
 }

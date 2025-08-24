@@ -1,4 +1,4 @@
-import type { User } from '@/interfaces/api.interfaces';
+import type { Statistic, User } from '@/interfaces/api.interfaces';
 
 export interface ApiAccountResponce {
   data: User;
@@ -16,17 +16,6 @@ export interface UpdatePasswordRequest {
 export interface UpdateAccountResponse {
   data: User;
   message: string;
-}
-
-export interface Statistic {
-  snippetsCount: number;
-  rating: number;
-  commentsCount: number;
-  likesCount: number;
-  dislikesCount: number;
-  questionsCount: number;
-  correctAnswersCount: number;
-  regularAnswersCount: number;
 }
 
 export interface StatisticResponse {
