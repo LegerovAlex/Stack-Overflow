@@ -19,9 +19,16 @@ export const snippetsApi = createApi({
   }),
   tagTypes: ['Snippets'],
   endpoints: (builder) => ({
-    getSnippets: builder.query<ApiSnippetsResponse, { userId?: string } | void>({
-      query: (body) => (body?.userId ? `/snippets?userId=${body.userId}` : '/snippets'),
+    getSnippets: builder.query<
+      ApiSnippetsResponse,
+      { userId?: string | null; page?: number; limit?: number }
+    >({
+      query: (body) =>
+        body?.userId
+          ? `/snippets?userId=${body.userId}`
+          : `/snippets?page=${body.page}&limit=${body.limit}`,
       providesTags: ['Snippets'],
+      keepUnusedDataFor: 0,
       async onQueryStarted(body, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         if (body?.userId) {

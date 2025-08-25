@@ -10,7 +10,7 @@ import type { SnippetFormValue } from './CreateSnippetForm.props';
 
 export const CreateSnippetForm: FC = () => {
   const { t } = useTranslation();
-  const { languages, addSnippet, error, isLoading } = useCreateSnippetForm();
+  const { languages, addSnippet, error, isLoading, isAuthenticated } = useCreateSnippetForm();
   const { control, handleSubmit, reset } = useForm<SnippetFormValue>();
 
   useEffect(() => {
@@ -29,6 +29,9 @@ export const CreateSnippetForm: FC = () => {
       language: languages[0] || '',
     });
   };
+
+  if (!isAuthenticated)
+    return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
 
   return (
     <Box sx={createSnippetFormStyles.component}>

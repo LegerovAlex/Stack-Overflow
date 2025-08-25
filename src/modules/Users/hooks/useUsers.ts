@@ -1,7 +1,12 @@
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useGetUsersQuery } from '../api/users.api';
 
 export const useUsers = () => {
-  const { data, error, isLoading } = useGetUsersQuery();
+  const { pageNum, lastElementRef, resetPageNum, data, isLoading, isFetching, error } =
+    useInfiniteScroll({
+      queryHook: useGetUsersQuery,
+      queryArg: { limit: 5 },
+    });
 
   const users =
     data?.map((user) => ({
@@ -11,8 +16,12 @@ export const useUsers = () => {
     })) || [];
 
   return {
+    pageNum,
     users,
     error,
     isLoading,
+    isFetching,
+    lastElementRef,
+    resetPageNum,
   };
 };

@@ -9,4 +9,6 @@ export interface SnippetCardProps {
   username: string;
   language: string;
   code: string;
+  onLike?: (id: string, currentMark: MarkType, type: 'like' | 'dislike') => void;
+  onComment?: (id: string) => void;
 }

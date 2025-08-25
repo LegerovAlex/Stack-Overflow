@@ -8,12 +8,21 @@ import { useAuth } from '@/hooks/useAuth';
 
 export const MySnippets: FC = () => {
   const { t } = useTranslation();
-  const { account } = useAuth();
-  const { snippets, isLoading, isError } = useSnippets(account?.id);
+  const { account, isAuthenticated } = useAuth();
+  const { snippets, isLoading, isError, handleComment, handleLike } = useSnippets(
+    isAuthenticated ? account?.id : null,
+  );
+
+  if (!isAuthenticated)
+    return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
 
   return (
     <>
-      {isLoading ? <Spinner /> : <SnippetList items={snippets} />}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <SnippetList onComment={handleComment} onLike={handleLike} items={snippets} />
+      )}
       {isError && <Typography>{t('snippets.errors.loadFailed')}</Typography>}
     </>
   );

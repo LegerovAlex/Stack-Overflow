@@ -8,4 +8,11 @@ export const usersStyles = {
     fontWeight: 700,
     color: colors.textPrimary,
   },
+  container: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 2,
+  },
 } satisfies SxThemeProps;

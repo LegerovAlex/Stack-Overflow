@@ -8,12 +8,22 @@ export const usersApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
-  endpoints: (buildier) => ({
-    getUsers: buildier.query<User[], void>({
-      query: () => '/users',
+  endpoints: (builder) => ({
+    getUsers: builder.query<User[], { page: number; limit: number }>({
+      query: ({ page, limit }) => `/users?page=${page}&limit=${limit}`,
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems);
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       transformResponse: (res: { data: ApiUsersResponce }): User[] => res.data.data || [],
+      keepUnusedDataFor: 0,
     }),
-    getUser: buildier.query<User, string>({
+    getUser: builder.query<User, string>({
       query: (id) => `/users/${id}`,
       transformResponse: (res: { data: User }) => res.data || null,
     }),
