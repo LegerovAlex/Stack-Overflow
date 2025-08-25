@@ -3,6 +3,7 @@ import { useGetSnippetQuery } from '../api/snippets.api';
 import { useSelector } from 'react-redux';
 import { selectCommentsProps, selectSnippetCardPropsByID } from '../api/snippets.selector';
 import { useAuth } from '@/hooks/useAuth';
+import { useSnippetLike } from './useSnippetLike';
 
 export const useSnippet = () => {
   const { id } = useParams();
@@ -13,12 +14,15 @@ export const useSnippet = () => {
 
   const { isAuthenticated } = useAuth();
 
+  const { handleLike } = useSnippetLike();
+
   return {
     id,
     isLoading,
     isError,
     snippet,
     comments,
+    handleLike,
     isAuthenticated,
   };
 };

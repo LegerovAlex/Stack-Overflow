@@ -12,7 +12,15 @@ import { snippetsAction } from '../../api/snippetsSlice';
 export const Snippet = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { snippet, comments, isLoading, isError, id: snippetId, isAuthenticated } = useSnippet();
+  const {
+    snippet,
+    comments,
+    isLoading,
+    isError,
+    id: snippetId,
+    isAuthenticated,
+    handleLike,
+  } = useSnippet();
   const [addComment, { isLoading: isAdding }] = useAddCommentMutation();
 
   const { register, handleSubmit, reset } = useForm<{ content: string }>();
@@ -41,7 +49,7 @@ export const Snippet = () => {
 
   return (
     <Box sx={snippetStyles.container}>
-      <SnippetCard {...snippet} />
+      <SnippetCard {...snippet} onLike={handleLike} />
       <CommentList comments={comments} />
       {isAuthenticated && (
         <CommentInput
