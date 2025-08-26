@@ -6,3 +6,5 @@ export * from './UsersPage';
 export * from './PostSnippetPage';
 export * from './MySnippetsPage';
 export * from './UserPage';
+export * from './QuestionsPage';
+export * from './PostQuestionPage';

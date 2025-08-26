@@ -7,7 +7,9 @@ import {
   AuthPage,
   HomePage,
   MySnippetsPage,
+  PostQuestionPage,
   PostSnippetPage,
+  QuestionPage,
   SnippetPage,
   UserPage,
   UsersPage,
@@ -44,7 +46,11 @@ export const router = createBrowserRouter([
       },
       {
         path: RoutesPaths.QUESTIONS,
-        element: <>Questions</>,
+        element: <QuestionPage />,
+      },
+      {
+        path: RoutesPaths.QUESTION_CREATE,
+        element: <PostQuestionPage />,
       },
       {
         path: RoutesPaths.USERS,

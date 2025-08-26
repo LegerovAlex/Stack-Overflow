@@ -6,6 +6,7 @@ export const enum RoutesPaths {
   POSTS = '/posts',
   SNIPPETS = '/snippets',
   QUESTIONS = '/questons',
+  QUESTION_CREATE = '/questions/create',
   USERS = '/users',
   USER = '/user',
 }

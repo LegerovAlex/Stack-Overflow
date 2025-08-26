@@ -20,7 +20,10 @@ export const useInfiniteScroll = <TData>({ queryHook, queryArg }: InfiniteScroll
   const [pageNum, setPageNum] = useState<number>(1);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const { data, isLoading, isFetching, error } = queryHook({ ...queryArg, page: pageNum });
+  const { data, isLoading, isFetching, error, isError, isSuccess } = queryHook({
+    ...queryArg,
+    page: pageNum,
+  });
 
   const lastElementRef = useCallback(
     (node: HTMLElement | null) => {
@@ -47,6 +50,8 @@ export const useInfiniteScroll = <TData>({ queryHook, queryArg }: InfiniteScroll
     lastElementRef,
     resetPageNum,
     data,
+    isError,
+    isSuccess,
     isLoading,
     isFetching,
     error,

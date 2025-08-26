@@ -29,6 +29,15 @@ export const snippetsApi = createApi({
           : `/snippets?page=${body.page}&limit=${body.limit}`,
       providesTags: ['Snippets'],
       keepUnusedDataFor: 0,
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        currentCache.data.data.push(...newItems.data.data);
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       async onQueryStarted(body, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         if (body?.userId) {

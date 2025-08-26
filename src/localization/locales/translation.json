@@ -5,7 +5,8 @@
     "confirmPassword": "Confirm Password",
     "changeUsername": "Change your username:",
     "changePassword": "Change your password:",
-    "codeSnippet": "Code of your snippet:"
+    "codeSnippet": "Code of your snippet:",
+    "question": "Attached Code: "
   },
   "placeholders": {
     "username": "Enter your username",
@@ -15,7 +16,9 @@
     "passwordNew": "New password",
     "confirmPassword": "Confirm your password",
     "writeCode": "Write your code..",
-    "addComment": "Add Comment"
+    "addComment": "Add Comment",
+    "questionTitle": "Question title",
+    "questionDesc": "Question description"
   },
   "button": {
     "login": "Sign In",
@@ -23,7 +26,8 @@
     "logout": "Logout",
     "save": "Save",
     "changePassword": "Change Password",
-    "createSnippet": "Create Snippet"
+    "createSnippet": "Create Snippet",
+    "createQuestion": "Ask question"
   },
   "auth": {
     "loginTitle": "Login",
@@ -106,8 +110,18 @@
       "loadFailed": "Failed to load Users",
        "loadFailedUser": "Failed to load User Profile"
     }
-  }
+  },
 
-  
+  "questions": {
+    "title": "Ask a question" ,
+     "status": {
+      "resolved": "Resolved",
+      "notResolved": "Not Resolved"
+    },
+    "errors": {
+      "loadFailed": "Failed to load questions"
+    
+    }
+  }
 
 }

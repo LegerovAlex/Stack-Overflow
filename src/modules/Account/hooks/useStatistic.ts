@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAccountStatisitcProps } from '../api/account.selector';
-import { useGetUserStatisticsQuery } from '@/store/Statistics/Statistics.api';
+import { useGetUserStatisticsQuery } from '@/store/Statistics/statistics.api';
 import { useEffect } from 'react';
 import { accountAction } from '../api/accountSlice';
 

@@ -1,4 +1,4 @@
-import { useGetUserStatisticsQuery } from '@/store/Statistics/Statistics.api';
+import { useGetUserStatisticsQuery } from '@/store/Statistics/statistics.api';
 import { useParams } from 'react-router';
 import { skipToken } from '@reduxjs/toolkit/query';
 

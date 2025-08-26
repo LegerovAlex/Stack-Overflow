@@ -8,12 +8,14 @@ export const FormInput = <T extends FieldValues>({
   placeholder,
   control,
   startAdornment,
+  rules,
   endAdornment,
   ...rest
 }: FormInputProps<T>) => {
   return (
     <Controller
       name={name}
+      rules={rules}
       control={control}
       render={({ field, fieldState: { error } }) => (
         <InputField

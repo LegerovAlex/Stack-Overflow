@@ -6,7 +6,8 @@ import { snippetsReducer } from '@/modules/Snippets/api/snippetsSlice';
 import { accountApi } from '@/modules/Account/api/account.api';
 import { accountReducer } from '@/modules/Account/api/accountSlice';
 import { usersApi } from '@/modules/Users/api/users.api';
-import { statisticsApi } from './Statistics/Statistics.api';
+import { statisticsApi } from './Statistics/statistics.api';
+import { questionsApi } from '@/modules/Questions/api/questions.api';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [accountApi.reducerPath]: accountApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
     [statisticsApi.reducerPath]: statisticsApi.reducer,
+    [questionsApi.reducerPath]: questionsApi.reducer,
     auth: authReducer,
     snippets: snippetsReducer,
     account: accountReducer,
@@ -26,5 +28,6 @@ export const store = configureStore({
       accountApi.middleware,
       usersApi.middleware,
       statisticsApi.middleware,
+      questionsApi.middleware,
     ),
 });
