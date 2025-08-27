@@ -10,8 +10,8 @@ export const QuestionsList: FC<QuestionsListProps> = ({ items, lastElementRef })
       {items.map((item, index) => (
         <QuestionCard
           key={item.id}
-          {...item}
           ref={index === items.length - 1 ? lastElementRef : undefined}
+          {...item}
         />
       ))}
     </Box>

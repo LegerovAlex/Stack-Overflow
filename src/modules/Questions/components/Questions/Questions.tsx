@@ -10,7 +10,7 @@ import { RoutesPaths } from '@/routes/routeesPaths';
 
 export const Questions: FC = () => {
   const { t } = useTranslation();
-  const { questions, isLoading, isFetching, error, lastElementRef } = useQuestions();
+  const { questions, isLoading, isFetchingNextPage, error, lastElementRef } = useQuestions();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -23,7 +23,7 @@ export const Questions: FC = () => {
     <Box sx={questionsStyles.container}>
       <PrimaryButton onClick={handleClick}>{t('button.createQuestion')}</PrimaryButton>
       <QuestionsList items={questions} lastElementRef={lastElementRef} />
-      {isFetching && <Spinner />}
+      {isFetchingNextPage && <Spinner />}
       {error && <Typography>{t('questions.errors.loadFailed')}</Typography>}
     </Box>
   );

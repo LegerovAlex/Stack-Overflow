@@ -1,21 +1,35 @@
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
-import { useGetQuestionsQuery } from '../api/questions.api';
-import { useMemo } from 'react';
+import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useGetQuestionsInfiniteQuery } from '../api/questions.api';
 import { transformQuestions } from '../api/questions.transform';
 
 export const useQuestions = () => {
-  const { data, lastElementRef, isLoading, isFetching, error } = useInfiniteScroll({
-    queryHook: useGetQuestionsQuery,
-    queryArg: { limit: 5 },
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetQuestionsInfiniteQuery();
+
+  const [ref, inView] = useInView({
+    threshold: 0.9,
   });
 
-  const questions = useMemo(() => transformQuestions(data || []), [data]);
+  const lockRef = useRef(false);
+
+  useEffect(() => {
+    if (inView && hasNextPage && !lockRef.current) {
+      lockRef.current = true;
+      fetchNextPage().finally(() => {
+        lockRef.current = false;
+      });
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  const questions = transformQuestions(data?.pages.flatMap((page) => page.data) ?? []);
 
   return {
     questions,
     isLoading,
-    isFetching,
     error,
-    lastElementRef,
+    hasNextPage,
+    isFetchingNextPage,
+    lastElementRef: ref,
   };
 };

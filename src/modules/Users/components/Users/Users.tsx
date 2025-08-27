@@ -6,7 +6,7 @@ import { Spinner } from '@/ui';
 import { usersStyles } from './Users.style';
 export const Users = () => {
   const { t } = useTranslation();
-  const { error, isLoading, users, isFetching, lastElementRef } = useUsers();
+  const { error, isLoading, users, isFetchingNextPage, lastElementRef } = useUsers();
 
   return (
     <>
@@ -16,7 +16,7 @@ export const Users = () => {
         <Box sx={usersStyles.container}>
           <Typography sx={usersStyles.title}>{t('users.title')}</Typography>
           <UsersList lastElementRef={lastElementRef} users={users} />
-          {isFetching && <Spinner />}
+          {isFetchingNextPage && <Spinner />}
         </Box>
       )}
       {error && <Typography>{t('users.errors.loadFailed')}</Typography>}

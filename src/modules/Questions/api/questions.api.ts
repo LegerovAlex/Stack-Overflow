@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
   CreatedQuestionResponce,
   CreateQuestionRequest,
-  QuestionsResponse,
+  QuestionsApiResponse,
 } from './questions.interface';
 
 export const questionsApi = createApi({
@@ -11,22 +11,22 @@ export const questionsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
+  tagTypes: ['Questions'],
   endpoints: (builder) => ({
-    getQuestions: builder.query<QuestionsResponse, { page: number; limit: number }>({
-      query: ({ page, limit }) => ({
+    getQuestions: builder.infiniteQuery<QuestionsApiResponse, void, number>({
+      query: ({ pageParam = 1 }) => ({
         url: '/questions',
-        params: { page, limit },
+        params: { page: pageParam, limit: 6 },
       }),
-      keepUnusedDataFor: 0,
-      transformResponse: (response: { data: { data: QuestionsResponse } }) => response.data.data,
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
-      },
-      merge: (currentCache, newItems) => {
-        currentCache.push(...newItems);
-      },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
+      transformResponse: (response: { data: QuestionsApiResponse }) => response.data,
+      providesTags: ['Questions'],
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+          return lastPage.meta.currentPage < lastPage.meta.totalPages
+            ? lastPage.meta.currentPage + 1
+            : undefined;
+        },
       },
     }),
     addQuestion: builder.mutation<CreatedQuestionResponce, CreateQuestionRequest>({
@@ -36,8 +36,9 @@ export const questionsApi = createApi({
         body,
       }),
       transformResponse: (response: { data: CreatedQuestionResponce }) => response.data,
+      invalidatesTags: ['Questions'],
     }),
   }),
 });
 
-export const { useGetQuestionsQuery, useAddQuestionMutation } = questionsApi;
+export const { useGetQuestionsInfiniteQuery, useAddQuestionMutation } = questionsApi;

@@ -1,4 +1,4 @@
-import type { User } from '@/interfaces/api.interfaces';
+import type { PaginationMeta, User } from '@/interfaces/api.interfaces';
 
 export interface Answer {
   id: string;
@@ -17,6 +17,11 @@ export interface Question {
 }
 
 export type QuestionsResponse = Question[];
+
+export interface QuestionsApiResponse {
+  data: QuestionsResponse;
+  meta: PaginationMeta;
+}
 
 export interface QuestionCardData {
   id: string;
