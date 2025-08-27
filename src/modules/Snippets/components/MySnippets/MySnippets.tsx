@@ -1,17 +1,15 @@
 import { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSnippets } from '../../hooks/useSnippets';
 import { Typography } from '@mui/material';
 import { SnippetList } from '@/components';
 import { Spinner } from '@/ui';
-import { useAuth } from '@/hooks/useAuth';
+import { useMySnippets } from '../../hooks/useMySnippet';
 
 export const MySnippets: FC = () => {
   const { t } = useTranslation();
-  const { account, isAuthenticated } = useAuth();
-  const { snippets, isLoading, isError, handleComment, handleLike } = useSnippets(
-    isAuthenticated ? account?.id : null,
-  );
+
+  const { isAuthenticated, isError, isLoading, snippets, handleLike, handleComment } =
+    useMySnippets();
 
   if (!isAuthenticated)
     return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
@@ -21,7 +19,7 @@ export const MySnippets: FC = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <SnippetList onComment={handleComment} onLike={handleLike} items={snippets} />
+        <SnippetList onLike={handleLike} onComment={handleComment} items={snippets} />
       )}
       {isError && <Typography>{t('snippets.errors.loadFailed')}</Typography>}
     </>

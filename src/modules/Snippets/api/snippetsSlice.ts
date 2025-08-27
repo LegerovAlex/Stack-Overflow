@@ -21,10 +21,7 @@ const snippetsSlice = createSlice({
   initialState,
   reducers: {
     setSnippets: (state, action: PayloadAction<Snippet[]>) => {
-      state.snippets = [...state.snippets, ...action.payload];
-    },
-    resetSnippets: (state) => {
-      state.snippets = [];
+      state.snippets = action.payload;
     },
     setMySnippets: (state, action: PayloadAction<Snippet[]>) => {
       state.mySnippets = action.payload;

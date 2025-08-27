@@ -1,4 +1,4 @@
-import type { User } from '@/interfaces/api.interfaces';
+import type { PaginationMeta, User } from '@/interfaces/api.interfaces';
 import type { MarkType } from '@/types/snippets.types';
 
 export interface Mark {
@@ -36,12 +36,9 @@ export interface Snippet {
   comments: Comment[];
 }
 
-export interface SnippetsResponse {
-  data: Snippet[];
-}
-
 export interface ApiSnippetsResponse {
-  data: SnippetsResponse;
+  data: Snippet[];
+  meta: PaginationMeta;
 }
 
 export interface ApiSnippetResponce {

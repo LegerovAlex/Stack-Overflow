@@ -4,7 +4,7 @@ import type { RefCallback } from 'react';
 
 export interface SnippetListProps {
   items: SnippetCardProps[];
-  lastElementRef?: RefCallback<Node>;
+  lastElementRef?: RefCallback<HTMLElement>;
   onLike: (id: string, currentMark: MarkType, type: 'like' | 'dislike') => void;
   onComment: (id: string) => void;
 }

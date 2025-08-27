@@ -1,54 +1,40 @@
-import { useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { useGetSnippetsQuery } from '../api/snippets.api';
+import { useGetSnippetsInfiniteQuery } from '../api/snippets.api';
 import { selectSnippetCardProps } from '../api/snippets.selector';
-
-import { useNavigate } from 'react-router';
-import { RoutesPaths } from '@/routes/routeesPaths';
-import { useSnippetMark } from './useSnippetMark';
-import type { MarkType } from '@/types/snippets.types';
-import { useInfiniteScrollLocal } from '@/hooks/useInfiniteScroll';
 import { useAuth } from '@/hooks/useAuth';
+import { useInView } from 'react-intersection-observer';
+import { useSnippetActions } from './useSnippetActions';
 
-export const useSnippets = (userId?: string | null) => {
-  const { pageNum, lastElementRef } = useInfiniteScrollLocal(false);
+export const useSnippets = () => {
+  const { fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, refetch } =
+    useGetSnippetsInfiniteQuery();
 
-  const queryArgs = typeof userId === 'string' ? { userId } : { page: pageNum, limit: 5 };
+  const lockRef = useRef(false);
+  const [ref, inView] = useInView({ threshold: 0.9 });
 
-  const isMySnippets = typeof userId === 'string';
+  const snippets = useSelector(selectSnippetCardProps());
 
-  const skip = userId === null;
-
-  const { isLoading, isError, refetch, isFetching } = useGetSnippetsQuery(queryArgs, { skip });
+  useEffect(() => {
+    if (inView && hasNextPage && !lockRef.current) {
+      lockRef.current = true;
+      fetchNextPage().finally(() => {
+        lockRef.current = false;
+      });
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   const { isAuthenticated } = useAuth();
 
-  const navigate = useNavigate();
+  const { handleComment, handleLike } = useSnippetActions();
 
-  const snippets = useSelector(selectSnippetCardProps(isMySnippets));
-
-  const { handleMark } = useSnippetMark();
-
-  const handleLike = useCallback(
-    (id: string, currentType: MarkType, nextType: 'like' | 'dislike') => {
-      handleMark(id, currentType, nextType);
-    },
-    [handleMark],
-  );
-
-  const handleComment = useCallback(
-    (id: string) => {
-      navigate(`${RoutesPaths.SNIPPET}/${id}`);
-    },
-    [navigate],
-  );
   return {
     handleLike,
     handleComment,
     snippets,
     isLoading,
-    lastElementRef,
-    isFetching,
+    lastElementRef: ref,
+    isFetchingNextPage,
     isAuthenticated,
     isError,
     refetch,

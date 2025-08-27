@@ -19,32 +19,36 @@ export const snippetsApi = createApi({
   }),
   tagTypes: ['Snippets'],
   endpoints: (builder) => ({
-    getSnippets: builder.query<
-      ApiSnippetsResponse,
-      { userId?: string | null; page?: number; limit?: number }
-    >({
-      query: (body) =>
-        body?.userId
-          ? `/snippets?userId=${body.userId}`
-          : `/snippets?page=${body.page}&limit=${body.limit}`,
+    getSnippets: builder.infiniteQuery<ApiSnippetsResponse, void, number>({
+      query: ({ pageParam = 1 }) => ({
+        url: '/snippets',
+        params: { page: pageParam, limit: 7 },
+      }),
+      transformResponse: (response: { data: ApiSnippetsResponse }) => response.data,
       providesTags: ['Snippets'],
-      keepUnusedDataFor: 0,
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) =>
+          lastPage.meta.currentPage < lastPage.meta.totalPages
+            ? lastPage.meta.currentPage + 1
+            : undefined,
       },
-      merge: (currentCache, newItems) => {
-        currentCache.data.data.push(...newItems.data.data);
-      },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
-      },
-      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
-        if (body?.userId) {
-          dispatch(snippetsAction.setMySnippets(data.data.data));
-        } else {
-          dispatch(snippetsAction.setSnippets(data.data.data));
-        }
+        const snippets = data.pages.flatMap((page: ApiSnippetsResponse) => page.data);
+        dispatch(snippetsAction.setSnippets(snippets));
+      },
+    }),
+    getMySnippets: builder.query<ApiSnippetsResponse, { userId: string }>({
+      query: ({ userId }) => ({
+        url: '/snippets',
+        params: { userId },
+      }),
+      providesTags: ['Snippets'],
+      transformResponse: (resp: { data: ApiSnippetsResponse }) => resp.data,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(snippetsAction.setMySnippets(data.data));
       },
     }),
     getSnippet: builder.query<ApiSnippetResponce, string>({
@@ -88,7 +92,8 @@ export const snippetsApi = createApi({
 });
 
 export const {
-  useGetSnippetsQuery,
+  useGetMySnippetsQuery,
+  useGetSnippetsInfiniteQuery,
   useMarkSnippetMutation,
   useGetSnippetQuery,
   useAddCommentMutation,
