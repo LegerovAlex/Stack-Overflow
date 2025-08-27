@@ -1,4 +1,4 @@
-import { CodeInput, FormInput } from '@/components';
+import { CodeInput, FormInput, SuccessSnackbar } from '@/components';
 import { PrimaryButton } from '@/ui';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -11,7 +11,7 @@ import { useCreateQuestionsForm } from '../../hooks/useCreateQuestionForm';
 export const QuestionForm = () => {
   const { t } = useTranslation();
 
-  const { addQuestion, error, isAuthenticated, isLoading } = useCreateQuestionsForm();
+  const { addQuestion, error, isAuthenticated, isLoading, isSuccess } = useCreateQuestionsForm();
 
   const { control, handleSubmit, reset } = useForm<QuestionFormValue>();
 
@@ -51,6 +51,7 @@ export const QuestionForm = () => {
         <PrimaryButton disabled={isLoading} type="submit">
           {t('button.createQuestion')}
         </PrimaryButton>
+        <SuccessSnackbar isSuccess={isSuccess} message={t('alert')} />
         {error && (
           <Typography sx={questionFormStyles.errorMessage}>
             {t('createSnippetForm.errors.createSnippet')}

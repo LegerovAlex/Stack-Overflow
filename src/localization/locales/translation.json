@@ -8,6 +8,7 @@
     "codeSnippet": "Code of your snippet:",
     "question": "Attached Code: "
   },
+  "alert": "Success",
   "placeholders": {
     "username": "Enter your username",
     "usernameNew": "New username",

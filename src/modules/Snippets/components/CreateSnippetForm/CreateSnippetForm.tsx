@@ -1,4 +1,4 @@
-import { CodeInput, LanguageSelect } from '@/components';
+import { CodeInput, LanguageSelect, SuccessSnackbar } from '@/components';
 import { Box, Typography } from '@mui/material';
 import { useEffect, type FC } from 'react';
 import { useCreateSnippetForm } from '../../hooks/useCreateSnippetForm';
@@ -10,7 +10,8 @@ import type { SnippetFormValue } from './CreateSnippetForm.props';
 
 export const CreateSnippetForm: FC = () => {
   const { t } = useTranslation();
-  const { languages, addSnippet, error, isLoading, isAuthenticated } = useCreateSnippetForm();
+  const { languages, addSnippet, error, isLoading, isAuthenticated, isSuccess } =
+    useCreateSnippetForm();
   const { control, handleSubmit, reset } = useForm<SnippetFormValue>();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export const CreateSnippetForm: FC = () => {
         <PrimaryButton disabled={isLoading} type="submit">
           {t('button.createSnippet')}
         </PrimaryButton>
+        <SuccessSnackbar isSuccess={isSuccess} message={t('alert')} />
         {error && (
           <Typography sx={createSnippetFormStyles.errorMessage}>
             {t('createSnippetForm.errors.createSnippet')}

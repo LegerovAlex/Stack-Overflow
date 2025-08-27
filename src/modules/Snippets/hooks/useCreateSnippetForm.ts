@@ -9,13 +9,14 @@ export const useCreateSnippetForm = () => {
 
   const { isAuthenticated } = useAuth();
 
-  const [addSnippet, { isLoading, error }] = useAddSnippetMutation();
+  const [addSnippet, { isLoading, error, isSuccess }] = useAddSnippetMutation();
 
   return {
     languages,
     isLoading,
     error,
     isAuthenticated,
+    isSuccess,
     addSnippet,
   };
 };

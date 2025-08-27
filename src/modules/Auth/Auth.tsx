@@ -12,7 +12,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router';
 import { Headling, PrimaryButton } from '@/ui';
-import { FormInput } from '@/components';
+import { FormInput, SuccessSnackbar } from '@/components';
 import { RoutesPaths } from '@/routes/routeesPaths';
 import { authValidation } from '@/utils/validation.utils';
 
@@ -20,6 +20,7 @@ export const Auth: FC = () => {
   const { t } = useTranslation();
   const [isRegister, setIsRegister] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
 
   const [login, { error: loginError, reset: resetLogin, isLoading: isLoginLoading }] =
@@ -47,6 +48,7 @@ export const Auth: FC = () => {
   useEffect(() => {
     if (isRegisterSuccess) {
       setIsRegister(false);
+      setShowSuccess(true);
       reset();
       resetRegister();
       setShowPass(false);
@@ -123,6 +125,11 @@ export const Auth: FC = () => {
         <PrimaryButton type="submit" disabled={isLoginLoading || isRegisterLoading}>
           {t(isRegister ? 'button.register' : 'button.login')}
         </PrimaryButton>
+        <SuccessSnackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          isSuccess={showSuccess}
+          message={t('alert')}
+        />
       </Box>
       {(loginError || registerError) && (
         <Typography sx={authFormStyles.errorMessage}>{errorMessage.message}</Typography>
