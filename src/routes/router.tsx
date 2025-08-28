@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
         element: <QuestionPage />,
       },
       {
-        path: RoutesPaths.QUESTION_CREATE,
+        path: `${RoutesPaths.QUESTION_CREATE}/:id?`,
         element: <PostQuestionPage />,
       },
       {

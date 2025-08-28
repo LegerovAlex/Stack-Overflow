@@ -1,6 +1,9 @@
 import type { Question, QuestionCardData } from './questions.interface';
 
-export const transformQuestions = (questions: Question[]): QuestionCardData[] => {
+export const transformQuestions = (
+  questions: Question[],
+  currendUserId?: string,
+): QuestionCardData[] => {
   return questions.map((question) => ({
     id: question.id,
     code: question.attachedCode,
@@ -8,5 +11,6 @@ export const transformQuestions = (questions: Question[]): QuestionCardData[] =>
     description: question.description,
     title: question.title,
     isResolved: question.isResolved,
+    isMine: question.user.id === currendUserId,
   }));
 };

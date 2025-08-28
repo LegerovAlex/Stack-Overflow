@@ -38,7 +38,44 @@ export const questionsApi = createApi({
       transformResponse: (response: { data: CreatedQuestionResponce }) => response.data,
       invalidatesTags: ['Questions'],
     }),
+    updateQuestion: builder.mutation<
+      CreatedQuestionResponce,
+      { id: string; data: CreateQuestionRequest }
+    >({
+      query: ({ id, data }) => ({
+        url: `/questions/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['Questions'],
+    }),
+    deleteQuestion: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/questions/${id}`,
+        method: 'DELETE',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          questionsApi.util.updateQueryData('getQuestions', undefined, (draft) => {
+            draft.pages.forEach((page) => {
+              page.data = page.data.filter((q) => q.id !== id);
+            });
+          }),
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetQuestionsInfiniteQuery, useAddQuestionMutation } = questionsApi;
+export const {
+  useGetQuestionsInfiniteQuery,
+  useAddQuestionMutation,
+  useDeleteQuestionMutation,
+  useUpdateQuestionMutation,
+} = questionsApi;

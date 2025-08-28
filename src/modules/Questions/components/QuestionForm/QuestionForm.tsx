@@ -5,29 +5,42 @@ import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { questionFormStyles } from './QuestionForm.styles';
-import type { QuestionFormValue } from './QuestionForm.props';
-import { useCreateQuestionsForm } from '../../hooks/useCreateQuestionForm';
+import type { QuestionFormProps } from './QuestionForm.props';
 
-export const QuestionForm = () => {
+import type { FC } from 'react';
+import { useQuestionsForm } from '../../hooks/useQuestionForm';
+import type { QuestionFormValue } from '@/interfaces/api.interfaces';
+
+export const QuestionForm: FC<QuestionFormProps> = ({ initialValues, questionId }) => {
   const { t } = useTranslation();
 
-  const { addQuestion, error, isAuthenticated, isLoading, isSuccess } = useCreateQuestionsForm();
+  const { addQuestion, updateQuestion, isLoading, error, isAuthenticated, isSuccess } =
+    useQuestionsForm();
 
-  const { control, handleSubmit, reset } = useForm<QuestionFormValue>();
+  const { control, handleSubmit, reset } = useForm<QuestionFormValue>({
+    defaultValues: initialValues,
+  });
 
   const onSubmit = async (data: QuestionFormValue) => {
-    await addQuestion(data).unwrap();
-    reset({
-      attachedCode: '',
-    });
+    if (questionId) {
+      await updateQuestion({ id: questionId, data }).unwrap();
+      reset({ title: '', description: '', attachedCode: '' });
+    } else {
+      await addQuestion(data).unwrap();
+      reset({ attachedCode: '' });
+    }
   };
+
+  const isEditMode = Boolean(questionId);
+  const titleText = isEditMode ? t('questions.editTitle') : t('questions.title');
+  const buttonText = isEditMode ? t('button.updateQuestion') : t('button.createQuestion');
 
   if (!isAuthenticated)
     return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
 
   return (
     <Box sx={questionFormStyles.component}>
-      <Typography sx={questionFormStyles.title}>{t('questions.title')}</Typography>
+      <Typography sx={questionFormStyles.title}>{titleText}</Typography>
       <Box sx={questionFormStyles.form} component="form" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           control={control}
@@ -49,7 +62,7 @@ export const QuestionForm = () => {
           label={t('labels.question')}
         />
         <PrimaryButton disabled={isLoading} type="submit">
-          {t('button.createQuestion')}
+          {buttonText}
         </PrimaryButton>
         <SuccessSnackbar isSuccess={isSuccess} message={t('alert')} />
         {error && (

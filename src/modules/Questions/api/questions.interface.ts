@@ -30,6 +30,7 @@ export interface QuestionCardData {
   username: string;
   title: string;
   isResolved: boolean;
+  isMine: boolean;
 }
 
 export interface CreateQuestionRequest {

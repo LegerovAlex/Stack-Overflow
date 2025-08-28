@@ -1,5 +1,6 @@
-export interface QuestionFormValue {
-  title: string;
-  description: string;
-  attachedCode: string;
+import type { QuestionFormValue } from '@/interfaces/api.interfaces';
+
+export interface QuestionFormProps {
+  initialValues?: QuestionFormValue;
+  questionId?: string;
 }

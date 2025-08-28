@@ -21,3 +21,9 @@ export interface PaginationMeta {
   currentPage: number;
   totalPages: number;
 }
+
+export interface QuestionFormValue {
+  title: string;
+  description: string;
+  attachedCode: string;
+}

@@ -2,10 +2,13 @@ import { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useGetQuestionsInfiniteQuery } from '../api/questions.api';
 import { transformQuestions } from '../api/questions.transform';
+import { useAuth } from '@/hooks/useAuth';
 
 export const useQuestions = () => {
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetQuestionsInfiniteQuery();
+
+  const { account } = useAuth();
 
   const [ref, inView] = useInView({
     threshold: 0.9,
@@ -22,7 +25,7 @@ export const useQuestions = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const questions = transformQuestions(data?.pages.flatMap((page) => page.data) ?? []);
+  const questions = transformQuestions(data?.pages.flatMap((page) => page.data) ?? [], account?.id);
 
   return {
     questions,

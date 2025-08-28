@@ -28,7 +28,8 @@
     "save": "Save",
     "changePassword": "Change Password",
     "createSnippet": "Create Snippet",
-    "createQuestion": "Ask question"
+    "createQuestion": "Ask question",
+    "updateQuestion": "Update Question"
   },
   "auth": {
     "loginTitle": "Login",
@@ -115,6 +116,7 @@
 
   "questions": {
     "title": "Ask a question" ,
+    "editTitle": "Edit a question",
      "status": {
       "resolved": "Resolved",
       "notResolved": "Not Resolved"
