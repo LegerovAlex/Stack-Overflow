@@ -1,6 +1,8 @@
 import { Account } from '@/modules';
 import type { FC } from 'react';
 
-export const AccountPage: FC = () => {
+const AccountPage: FC = () => {
   return <Account />;
 };
+
+export default AccountPage;

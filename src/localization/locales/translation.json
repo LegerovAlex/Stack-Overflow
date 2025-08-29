@@ -127,8 +127,11 @@
     },
     "errors": {
       "loadFailed": "Failed to load questions"
-    
     }
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Oops! It seems you are lost. Return to ",
+    "homeLink": "home"
   }
-
 }

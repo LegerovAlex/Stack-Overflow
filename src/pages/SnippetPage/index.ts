@@ -1,1 +1,1 @@
-export * from './SnippetPage';
+export { default } from './SnippetPage';

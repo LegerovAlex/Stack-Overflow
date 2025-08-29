@@ -1,1 +1,1 @@
-export * from './MySnippetsPage';
+export { default } from './MySnippetsPage';

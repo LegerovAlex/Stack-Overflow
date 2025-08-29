@@ -1,2 +1,1 @@
-export * from './PostSnippetPage';
-export * from './PostSnippetPage.props';
+export { default } from './PostSnippetPage';

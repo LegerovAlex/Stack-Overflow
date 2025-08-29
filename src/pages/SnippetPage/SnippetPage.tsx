@@ -1,5 +1,8 @@
 import { Snippet } from '@/modules';
+import type { FC } from 'react';
 
-export const SnippetPage = () => {
+const SnippetPage: FC = () => {
   return <Snippet />;
 };
+
+export default SnippetPage;
