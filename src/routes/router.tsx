@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
         path: RoutesPaths.QUESTIONS,
         element: (
           <Suspense fallback={<Spinner />}>
-            <PostQuestionPage />
+            <QuestionPage />
           </Suspense>
         ),
       },
@@ -78,7 +78,7 @@ export const router = createBrowserRouter([
         path: `${RoutesPaths.QUESTION_CREATE}/:id?`,
         element: (
           <Suspense fallback={<Spinner />}>
-            <QuestionPage />
+            <PostQuestionPage />
           </Suspense>
         ),
       },
