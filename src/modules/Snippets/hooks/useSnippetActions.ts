@@ -11,7 +11,7 @@ export const useSnippetActions = () => {
   const [deleteSnippet] = useDeleteSnippetMutation();
   const navigate = useNavigate();
 
-  const handleLike = useCallback(
+  const handleMarkAction = useCallback(
     (id: string, currentType: MarkType, nextType: 'like' | 'dislike') => {
       handleMark(id, currentType, nextType);
     },
@@ -32,5 +32,5 @@ export const useSnippetActions = () => {
     [deleteSnippet],
   );
 
-  return { handleLike, handleComment, handleDelete };
+  return { handleMarkAction, handleComment, handleDelete };
 };

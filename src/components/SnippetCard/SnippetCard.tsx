@@ -19,7 +19,7 @@ export const SnippetCard = forwardRef<HTMLDivElement, SnippetCardProps>(
       id,
       onDelete,
       onComment,
-      onLike,
+      onMark,
     },
     ref,
   ) => {
@@ -44,9 +44,8 @@ export const SnippetCard = forwardRef<HTMLDivElement, SnippetCardProps>(
           dislikes={dislikes}
           comments={comments}
           onDelete={onDelete}
-          onLike={() => onLike?.(id, userMarkType || 'none', 'like')}
-          onDislike={() => onLike?.(id, userMarkType || 'none', 'dislike')}
-          onComment={() => onComment?.(id)}
+          onMark={onMark}
+          onComment={onComment}
           id={id}
         />
       </Card>

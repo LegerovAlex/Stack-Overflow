@@ -8,11 +8,22 @@ import { useMySnippets } from '../../hooks/useMySnippet';
 export const MySnippets: FC = () => {
   const { t } = useTranslation();
 
-  const { isAuthenticated, isError, isLoading, snippets, handleLike, handleComment, handleDelete } =
-    useMySnippets();
+  const {
+    isAuthenticated,
+    isError,
+    isLoading,
+    snippets,
+    handleMarkAction,
+    handleComment,
+    handleDelete,
+  } = useMySnippets();
 
   if (!isAuthenticated)
     return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
+
+  if (snippets.length === 0) {
+    return <Typography sx={{ fontSize: '30px' }}>{t('snippets.deletedSnippets')}</Typography>;
+  }
 
   return (
     <>
@@ -20,7 +31,7 @@ export const MySnippets: FC = () => {
         <Spinner />
       ) : (
         <SnippetList
-          onLike={handleLike}
+          onMark={handleMarkAction}
           onComment={handleComment}
           onDelete={handleDelete}
           items={snippets}

@@ -7,31 +7,36 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import CommentIcon from '@mui/icons-material/Comment';
-import { snippetActionsStyle } from './SnippetActions.styles';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { snippetActionsStyle } from './SnippetActions.styles';
 
 export const SnippetActions: FC<SnippetActionsProps> = ({
+  id,
   likes,
   dislikes,
   comments,
-  onComment,
   userMarkType,
-  onLike,
+  onMark,
+  onComment,
   onDelete,
-  onDislike,
   isMine,
-  id,
 }) => {
   const handleLike = () => {
-    onLike(id);
+    if (onMark && id) {
+      onMark(id, userMarkType || 'none', 'like');
+    }
   };
 
   const handleDislike = () => {
-    onDislike(id);
+    if (onMark && id) {
+      onMark(id, userMarkType || 'none', 'dislike');
+    }
   };
 
   const handleComment = () => {
-    onComment(id);
+    if (onComment && id) {
+      onComment(id);
+    }
   };
 
   const handleDeleteClick = () => {
@@ -56,17 +61,16 @@ export const SnippetActions: FC<SnippetActionsProps> = ({
           <Typography>{dislikes}</Typography>
         </Box>
       </Box>
+
       <Box sx={snippetActionsStyle.actionGroup}>
         {isMine && (
           <IconButton onClick={handleDeleteClick}>
             <DeleteOutlineIcon />
           </IconButton>
         )}
-        {isMine && (
-          <IconButton disabled onClick={handleComment}>
-            <CommentIcon />
-          </IconButton>
-        )}
+        <IconButton onClick={handleComment}>
+          <CommentIcon />
+        </IconButton>
         <Typography>{comments}</Typography>
       </Box>
     </CardActions>

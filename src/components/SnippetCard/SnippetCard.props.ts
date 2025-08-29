@@ -1,16 +1,7 @@
-import type { MarkType } from '@/types/snippets.types';
+import type { SnippetActionsProps } from '@/ui';
 
-export interface SnippetCardProps {
-  id: string;
-  likes: number;
-  dislikes: number;
-  comments: number;
-  userMarkType?: MarkType;
+export interface SnippetCardProps extends SnippetActionsProps {
   username: string;
   language: string;
   code: string;
-  onLike?: (id: string, currentMark: MarkType, type: 'like' | 'dislike') => void;
-  onComment?: (id: string) => void;
-  onDelete?: (id: string) => void;
-  isMine?: boolean;
 }

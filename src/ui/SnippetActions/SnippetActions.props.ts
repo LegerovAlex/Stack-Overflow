@@ -6,9 +6,8 @@ export interface SnippetActionsProps {
   dislikes: number;
   comments: number;
   userMarkType?: MarkType;
-  onLike: (id: string) => void;
-  onDislike: (id: string) => void;
-  onComment: (id: string) => void;
+  onMark?: (id: string, currentMark: MarkType, nextMark: 'like' | 'dislike') => void;
+  onComment?: (id: string) => void;
   onDelete?: (id: string) => void;
   isMine?: boolean;
 }

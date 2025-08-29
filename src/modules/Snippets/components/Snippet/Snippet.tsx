@@ -20,7 +20,7 @@ export const Snippet = () => {
     id: snippetId,
     isAuthenticated,
     handleDelete,
-    handleLike,
+    handleMarkAction,
   } = useSnippet();
   const [addComment, { isLoading: isAdding }] = useAddCommentMutation();
 
@@ -53,7 +53,7 @@ export const Snippet = () => {
 
   return (
     <Box sx={snippetStyles.container}>
-      <SnippetCard {...snippet} onLike={handleLike} onDelete={handleDelete} />
+      <SnippetCard {...snippet} onMark={handleMarkAction} onDelete={handleDelete} />
       <CommentList comments={comments} />
       {isAuthenticated && (
         <CommentInput

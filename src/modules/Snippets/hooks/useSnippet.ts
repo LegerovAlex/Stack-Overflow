@@ -14,7 +14,7 @@ export const useSnippet = () => {
 
   const { isAuthenticated } = useAuth();
 
-  const { handleLike, handleDelete } = useSnippetActions();
+  const { handleMarkAction, handleDelete } = useSnippetActions();
 
   return {
     id,
@@ -23,7 +23,7 @@ export const useSnippet = () => {
     handleDelete,
     snippet,
     comments,
-    handleLike,
+    handleMarkAction,
     isAuthenticated,
   };
 };

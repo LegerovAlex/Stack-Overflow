@@ -73,6 +73,7 @@
   },
   "snippets": {
      "deletedSnippet": "Snippet not found",
+     "deletedSnippets": "Snippets not found",
     "errors": {
       "loadFailed": "Failed to load snippets"
     }

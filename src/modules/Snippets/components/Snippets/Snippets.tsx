@@ -13,7 +13,7 @@ export const Snippets = () => {
     isFetchingNextPage,
     lastElementRef,
     handleComment,
-    handleLike,
+    handleMarkAction,
     handleDelete,
   } = useSnippets();
 
@@ -25,7 +25,7 @@ export const Snippets = () => {
         <>
           <SnippetList
             lastElementRef={lastElementRef}
-            onLike={handleLike}
+            onMark={handleMarkAction}
             onComment={handleComment}
             onDelete={handleDelete}
             items={snippets}
