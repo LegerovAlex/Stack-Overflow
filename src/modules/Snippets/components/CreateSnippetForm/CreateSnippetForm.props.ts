@@ -1,4 +1,6 @@
-export interface SnippetFormValue {
-  language: string;
-  code: string;
+import type { SnippetFormValue } from '@/interfaces/api.interfaces';
+
+export interface CreateSnippetFormProps {
+  initialValues?: SnippetFormValue;
+  snippetId?: string;
 }

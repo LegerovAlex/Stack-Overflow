@@ -15,6 +15,7 @@ export const SnippetCard = forwardRef<HTMLDivElement, SnippetCardProps>(
       username,
       language,
       isMine,
+      onEdit,
       code,
       id,
       onDelete,
@@ -41,9 +42,12 @@ export const SnippetCard = forwardRef<HTMLDivElement, SnippetCardProps>(
           isMine={isMine}
           userMarkType={userMarkType}
           likes={likes}
+          code={code}
+          language={language}
           dislikes={dislikes}
           comments={comments}
           onDelete={onDelete}
+          onEdit={onEdit}
           onMark={onMark}
           onComment={onComment}
           id={id}

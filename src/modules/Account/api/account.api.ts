@@ -8,6 +8,8 @@ import type {
 } from './account.interface';
 import { accountAction } from './accountSlice';
 import { authAction } from '@/store/Auth/authSlice';
+import { snippetsApi } from '@/modules/Snippets/api/snippets.api';
+import { questionsApi } from '@/modules/Questions/api/questions.api';
 
 export const accountApi = createApi({
   reducerPath: 'accountApi',
@@ -42,6 +44,8 @@ export const accountApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         dispatch(accountAction.setAccount(data.data));
+        dispatch(snippetsApi.util.invalidateTags(['Snippets']));
+        dispatch(questionsApi.util.invalidateTags(['Questions']));
       },
     }),
     updatePassword: builder.mutation<UpdateAccountResponse, UpdatePasswordRequest>({

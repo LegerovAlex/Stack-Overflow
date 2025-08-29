@@ -15,6 +15,7 @@ export const Snippets = () => {
     handleComment,
     handleMarkAction,
     handleDelete,
+    hadleEdit,
   } = useSnippets();
 
   return (
@@ -28,6 +29,7 @@ export const Snippets = () => {
             onMark={handleMarkAction}
             onComment={handleComment}
             onDelete={handleDelete}
+            onEdit={hadleEdit}
             items={snippets}
           />
           {isFetchingNextPage && <Spinner />}

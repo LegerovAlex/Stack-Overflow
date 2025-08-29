@@ -7,7 +7,7 @@ import { useSnippetActions } from './useSnippetActions.ts';
 export const useMySnippets = () => {
   const { account, isAuthenticated } = useAuth();
 
-  const { handleMarkAction, handleComment, handleDelete } = useSnippetActions();
+  const { handleMarkAction, handleComment, handleDelete, hadleEdit } = useSnippetActions();
 
   const { isLoading, error, isError } = useGetMySnippetsQuery(
     { userId: account?.id ?? '' },
@@ -21,6 +21,7 @@ export const useMySnippets = () => {
     isLoading,
     isError,
     handleDelete,
+    hadleEdit,
     error,
     isAuthenticated,
     handleMarkAction,

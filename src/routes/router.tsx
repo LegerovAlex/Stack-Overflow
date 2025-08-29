@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
         element: <AccountPage />,
       },
       {
-        path: RoutesPaths.POSTS,
+        path: `${RoutesPaths.POSTS}/:id?`,
         element: <PostSnippetPage />,
       },
       {

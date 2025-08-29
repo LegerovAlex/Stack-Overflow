@@ -26,11 +26,12 @@ export const useSnippets = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const { handleComment, handleMarkAction, handleDelete } = useSnippetActions();
+  const { handleComment, handleMarkAction, handleDelete, hadleEdit } = useSnippetActions();
 
   return {
     handleMarkAction,
     handleComment,
+    hadleEdit,
     snippets,
     isLoading,
     lastElementRef: ref,

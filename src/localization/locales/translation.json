@@ -28,6 +28,7 @@
     "save": "Save",
     "changePassword": "Change Password",
     "createSnippet": "Create Snippet",
+    "updateSnippet": "Update Snippet",
     "createQuestion": "Ask question",
     "updateQuestion": "Update Question"
   },
@@ -95,6 +96,7 @@
   },
    "createSnippetForm": {
     "title": "Create new Snippet",
+    "editTitle": "Edit a Snippet",
     "labels": {
       "language": "Language",
       "helperLabel": "Language of your snippet:",

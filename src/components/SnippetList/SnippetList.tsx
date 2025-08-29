@@ -10,6 +10,7 @@ export const SnippetList: FC<SnippetListProps> = ({
   lastElementRef,
   onComment,
   onMark,
+  onEdit,
   onDelete,
 }) => {
   return (
@@ -21,6 +22,7 @@ export const SnippetList: FC<SnippetListProps> = ({
           ref={index === items.length - 1 ? lastElementRef : null}
           onMark={onMark}
           onComment={onComment}
+          onEdit={onEdit}
           onDelete={onDelete}
         />
       ))}

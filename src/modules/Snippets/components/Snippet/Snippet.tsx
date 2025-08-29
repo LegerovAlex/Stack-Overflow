@@ -17,6 +17,7 @@ export const Snippet = () => {
     comments,
     isLoading,
     isError,
+    hadleEdit,
     id: snippetId,
     isAuthenticated,
     handleDelete,
@@ -53,7 +54,12 @@ export const Snippet = () => {
 
   return (
     <Box sx={snippetStyles.container}>
-      <SnippetCard {...snippet} onMark={handleMarkAction} onDelete={handleDelete} />
+      <SnippetCard
+        {...snippet}
+        onMark={handleMarkAction}
+        onDelete={handleDelete}
+        onEdit={hadleEdit}
+      />
       <CommentList comments={comments} />
       {isAuthenticated && (
         <CommentInput

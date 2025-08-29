@@ -6,13 +6,16 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { PrimaryButton } from '@/ui';
 import { createSnippetFormStyles } from './CreateSnippetForm.styles';
-import type { SnippetFormValue } from './CreateSnippetForm.props';
+import type { CreateSnippetFormProps } from './CreateSnippetForm.props';
+import type { SnippetFormValue } from '@/interfaces/api.interfaces';
 
-export const CreateSnippetForm: FC = () => {
+export const CreateSnippetForm: FC<CreateSnippetFormProps> = ({ initialValues, snippetId }) => {
   const { t } = useTranslation();
-  const { languages, addSnippet, error, isLoading, isAuthenticated, isSuccess } =
+  const { languages, addSnippet, error, isLoading, isAuthenticated, isSuccess, updateSnippet } =
     useCreateSnippetForm();
-  const { control, handleSubmit, reset } = useForm<SnippetFormValue>();
+  const { control, handleSubmit, reset } = useForm<SnippetFormValue>({
+    defaultValues: initialValues,
+  });
 
   useEffect(() => {
     if (languages.length) {
@@ -24,19 +27,32 @@ export const CreateSnippetForm: FC = () => {
   }, [languages, reset]);
 
   const onSubmit = async (data: SnippetFormValue) => {
-    await addSnippet(data).unwrap();
-    reset({
-      code: '',
-      language: languages[0] || '',
-    });
+    if (snippetId) {
+      await updateSnippet({ id: snippetId, data }).unwrap();
+      reset({
+        code: '',
+        language: languages[0] || '',
+      });
+    } else {
+      await addSnippet(data).unwrap();
+      reset({
+        code: '',
+        language: languages[0] || '',
+      });
+    }
   };
+
+  const isEditMode = Boolean(snippetId);
+
+  const titleText = isEditMode ? t('createSnippetForm.editTitle') : t('createSnippetForm.title');
+  const buttonText = isEditMode ? t('button.updateSnippet') : t('button.createSnippet');
 
   if (!isAuthenticated)
     return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
 
   return (
     <Box sx={createSnippetFormStyles.component}>
-      <Typography sx={createSnippetFormStyles.title}>{t('createSnippetForm.title')}</Typography>
+      <Typography sx={createSnippetFormStyles.title}>{titleText}</Typography>
       <Box component="form" sx={createSnippetFormStyles.form} onSubmit={handleSubmit(onSubmit)}>
         <LanguageSelect
           name="language"
@@ -53,7 +69,7 @@ export const CreateSnippetForm: FC = () => {
           label={t('labels.codeSnippet')}
         />
         <PrimaryButton disabled={isLoading} type="submit">
-          {t('button.createSnippet')}
+          {buttonText}
         </PrimaryButton>
         <SuccessSnackbar isSuccess={isSuccess} message={t('alert')} />
         {error && (

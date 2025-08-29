@@ -15,11 +15,17 @@ export const MySnippets: FC = () => {
     snippets,
     handleMarkAction,
     handleComment,
+    hadleEdit,
     handleDelete,
   } = useMySnippets();
 
-  if (!isAuthenticated)
+  if (!isAuthenticated) {
     return <Typography sx={{ fontSize: '30px' }}>{t('account.errors.loginPrompt')}</Typography>;
+  }
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   if (snippets.length === 0) {
     return <Typography sx={{ fontSize: '30px' }}>{t('snippets.deletedSnippets')}</Typography>;
@@ -27,16 +33,13 @@ export const MySnippets: FC = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <SnippetList
-          onMark={handleMarkAction}
-          onComment={handleComment}
-          onDelete={handleDelete}
-          items={snippets}
-        />
-      )}
+      <SnippetList
+        onMark={handleMarkAction}
+        onComment={handleComment}
+        onDelete={handleDelete}
+        onEdit={hadleEdit}
+        items={snippets}
+      />
       {isError && <Typography>{t('snippets.errors.loadFailed')}</Typography>}
     </>
   );

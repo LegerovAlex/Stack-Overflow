@@ -24,6 +24,7 @@ export const snippetsApi = createApi({
         url: '/snippets',
         params: { page: pageParam, limit: 7 },
       }),
+      providesTags: ['Snippets'],
       transformResponse: (response: { data: ApiSnippetsResponse }) => response.data,
       infiniteQueryOptions: {
         initialPageParam: 1,
@@ -96,6 +97,17 @@ export const snippetsApi = createApi({
         dispatch(snippetsAction.removeSnippet({ snippetId: id }));
       },
     }),
+    updateSnippet: builder.mutation<void, { id: string; data: AddSnippetRequest }>({
+      query: ({ id, data }) => ({
+        url: `/snippets/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      async onQueryStarted({ id, data }, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(snippetsAction.updateSnippetLocal({ id, data }));
+      },
+    }),
   }),
 });
 
@@ -106,6 +118,7 @@ export const {
   useGetSnippetQuery,
   useAddCommentMutation,
   useGetLanguagesQuery,
+  useUpdateSnippetMutation,
   useAddSnippetMutation,
   useDeleteSnippetMutation,
 } = snippetsApi;

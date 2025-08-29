@@ -9,6 +9,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import CommentIcon from '@mui/icons-material/Comment';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { snippetActionsStyle } from './SnippetActions.styles';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const SnippetActions: FC<SnippetActionsProps> = ({
   id,
@@ -16,6 +17,9 @@ export const SnippetActions: FC<SnippetActionsProps> = ({
   dislikes,
   comments,
   userMarkType,
+  code,
+  language,
+  onEdit,
   onMark,
   onComment,
   onDelete,
@@ -45,6 +49,12 @@ export const SnippetActions: FC<SnippetActionsProps> = ({
     }
   };
 
+  const handleEditClick = () => {
+    if (onEdit && id) {
+      onEdit(id, { language, code });
+    }
+  };
+
   return (
     <CardActions sx={snippetActionsStyle.actions}>
       <Box sx={snippetActionsStyle.actionGroup}>
@@ -64,9 +74,14 @@ export const SnippetActions: FC<SnippetActionsProps> = ({
 
       <Box sx={snippetActionsStyle.actionGroup}>
         {isMine && (
-          <IconButton onClick={handleDeleteClick}>
-            <DeleteOutlineIcon />
-          </IconButton>
+          <>
+            <IconButton onClick={handleDeleteClick}>
+              <DeleteOutlineIcon />
+            </IconButton>
+            <IconButton onClick={handleEditClick}>
+              <EditIcon />
+            </IconButton>
+          </>
         )}
         <IconButton onClick={handleComment}>
           <CommentIcon />

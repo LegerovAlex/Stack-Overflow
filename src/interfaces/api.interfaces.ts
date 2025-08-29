@@ -27,3 +27,13 @@ export interface QuestionFormValue {
   description: string;
   attachedCode: string;
 }
+
+export interface SnippetFormValue {
+  language: string;
+  code: string;
+}
+
+export interface SnippetFormValue {
+  language: string;
+  code: string;
+}

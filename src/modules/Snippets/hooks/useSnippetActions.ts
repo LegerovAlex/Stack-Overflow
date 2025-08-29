@@ -4,6 +4,7 @@ import type { MarkType } from '@/types/snippets.types';
 import { RoutesPaths } from '@/routes/routeesPaths';
 import { useNavigate } from 'react-router';
 import { useDeleteSnippetMutation } from '../api/snippets.api';
+import type { SnippetFormValue } from '@/interfaces/api.interfaces';
 
 export const useSnippetActions = () => {
   const { handleMark } = useSnippetMark();
@@ -32,5 +33,12 @@ export const useSnippetActions = () => {
     [deleteSnippet],
   );
 
-  return { handleMarkAction, handleComment, handleDelete };
+  const hadleEdit = useCallback(
+    (id: string, data: SnippetFormValue) => {
+      navigate(`${RoutesPaths.POSTS}/${id}`, { state: { initialValues: data } });
+    },
+    [navigate],
+  );
+
+  return { handleMarkAction, handleComment, handleDelete, hadleEdit };
 };

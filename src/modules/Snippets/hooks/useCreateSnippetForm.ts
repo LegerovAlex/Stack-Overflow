@@ -1,6 +1,10 @@
 import { useSelector } from 'react-redux';
 import { selectLanguagesProps } from '../api/snippets.selector';
-import { useAddSnippetMutation, useGetLanguagesQuery } from '../api/snippets.api';
+import {
+  useAddSnippetMutation,
+  useGetLanguagesQuery,
+  useUpdateSnippetMutation,
+} from '../api/snippets.api';
 import { useAuth } from '@/hooks/useAuth';
 
 export const useCreateSnippetForm = () => {
@@ -9,14 +13,19 @@ export const useCreateSnippetForm = () => {
 
   const { isAuthenticated } = useAuth();
 
-  const [addSnippet, { isLoading, error, isSuccess }] = useAddSnippetMutation();
+  const [updateSnippet, { isLoading: isUpdating, error: updateError, isSuccess: updateSuccess }] =
+    useUpdateSnippetMutation();
+
+  const [addSnippet, { isLoading: isAdding, error: addError, isSuccess: addSuccess }] =
+    useAddSnippetMutation();
 
   return {
     languages,
-    isLoading,
-    error,
+    isLoading: isAdding || isUpdating,
+    error: addError || updateError,
     isAuthenticated,
-    isSuccess,
+    isSuccess: addSuccess || updateSuccess,
     addSnippet,
+    updateSnippet,
   };
 };
