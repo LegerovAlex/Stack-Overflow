@@ -1,0 +1,11 @@
+export { default as HomePage } from './HomePage';
+export { default as AccountPage } from './AccountPage';
+export { default as AuthPage } from './AuthPage';
+export { default as MySnippetsPage } from './MySnippetsPage';
+export { default as NotFoundPage } from './NotFoundPage';
+export { default as PostQuestionPage } from './PostQuestionPage';
+export { default as PostSnippetPage } from './PostSnippetPage';
+export { default as QuestionsPage } from './QuestionsPage';
+export { default as SnippetPage } from './SnippetPage';
+export { default as UserPage } from './UserPage';
+export { default as UsersPage } from './UsersPage';

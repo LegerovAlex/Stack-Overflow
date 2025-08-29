@@ -1,0 +1,137 @@
+{
+  "labels": {
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "changeUsername": "Change your username:",
+    "changePassword": "Change your password:",
+    "codeSnippet": "Code of your snippet:",
+    "question": "Attached Code: "
+  },
+  "alert": "Success",
+  "placeholders": {
+    "username": "Enter your username",
+    "usernameNew": "New username",
+    "password": "Enter your password",
+    "passwordOld": "Old password",
+    "passwordNew": "New password",
+    "confirmPassword": "Confirm your password",
+    "writeCode": "Write your code..",
+    "addComment": "Add Comment",
+    "questionTitle": "Question title",
+    "questionDesc": "Question description"
+  },
+  "button": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "logout": "Logout",
+    "save": "Save",
+    "changePassword": "Change Password",
+    "createSnippet": "Create Snippet",
+    "updateSnippet": "Update Snippet",
+    "createQuestion": "Ask question",
+    "updateQuestion": "Update Question"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "registerLink": "Sign up",
+    "loginLink": "Sign in",
+    "errors": {
+      "required": "This field is required",
+      "minLength": "Must be at least {{count}} characters",
+      "maxLength": "Must be at most {{count}} characters",
+      "usernameInvalid": "Username can only contain letters, numbers, and underscores",
+      "passwordInvalid": "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+      "confirmPasswordRequired": "Confirm password is required",
+      "confirmPasswordMismatch": "Passwords must match"
+    }
+  },
+  "navigation": {
+    "home": "Home",
+    "account": "My Account",
+    "post": "Post snippet",
+    "snippets": "My snippets",
+    "questions": "Questions",
+    "users": "Users"
+  },
+
+ "stats": {
+    "rating": "Rating",
+    "snippets": "Snippets",
+    "comments": "Comments",
+    "likes": "Likes",
+    "dislikes": "Dislikes",
+    "questions": "Questions",
+    "correctAnswers": "Correct Answers",
+    "regularAnswers": "Regular Answers"
+  },
+
+  "header": {
+    "title": "Stack"
+  },
+  "snippets": {
+     "deletedSnippet": "Snippet not found",
+     "deletedSnippets": "Snippets not found",
+    "errors": {
+      "loadFailed": "Failed to load snippets"
+    }
+  },
+  "account": {
+    "title": "Welcome ",
+    "notLoggedIn": "Not logged in",
+    "editProfile": "Edit your profile",
+    "user": {
+      "id": "Id:",
+      "role": "Role:",
+      "username": "Username:"
+    },
+    "errors": {
+      "loginPrompt": "You need sign in for this page",
+      "loadFailed": "Failed to load profile",
+      "statisticFailed": "Failed to load Account Statistic"
+    }
+  },
+   "createSnippetForm": {
+    "title": "Create new Snippet",
+    "editTitle": "Edit a Snippet",
+    "labels": {
+      "language": "Language",
+      "helperLabel": "Language of your snippet:",
+      "title": "Title"
+    },
+  
+     "errors": {
+        "required": "This field is required",
+         "languageRequired": "Please select a language",
+         "createSnippet": "Oops, snippet are not created"
+     }
+  },
+
+  "users": {
+    "title": "All Users",
+    "errors": {
+      "loadFailed": "Failed to load Users",
+       "loadFailedUser": "Failed to load User Profile"
+    }
+  },
+
+  "questions": {
+    "title": "Ask a question" ,
+    "editTitle": "Edit a question",
+     "status": {
+      "resolved": "Resolved",
+      "notResolved": "Not Resolved"
+    },
+    "errors": {
+      "loadFailed": "Failed to load questions"
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Oops! It seems you are lost. Return to ",
+    "homeLink": "home"
+  }
+}

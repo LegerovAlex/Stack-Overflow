@@ -1,0 +1,2 @@
+export const NAME_REGEXP = /^[a-zA-Z0-9_]+$/;
+export const PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,}$/;
