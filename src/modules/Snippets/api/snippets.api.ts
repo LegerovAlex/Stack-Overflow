@@ -25,7 +25,6 @@ export const snippetsApi = createApi({
         params: { page: pageParam, limit: 7 },
       }),
       transformResponse: (response: { data: ApiSnippetsResponse }) => response.data,
-      providesTags: ['Snippets'],
       infiniteQueryOptions: {
         initialPageParam: 1,
         getNextPageParam: (lastPage) =>
@@ -53,7 +52,6 @@ export const snippetsApi = createApi({
     }),
     getSnippet: builder.query<ApiSnippetResponce, string>({
       query: (id) => `/snippets/${id}`,
-      keepUnusedDataFor: 0,
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
         dispatch(snippetsAction.setSnippet(data.data));
@@ -88,6 +86,16 @@ export const snippetsApi = createApi({
       }),
       invalidatesTags: ['Snippets'],
     }),
+    deleteSnippet: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/snippets/${id}`,
+        method: 'DELETE',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(snippetsAction.removeSnippet({ snippetId: id }));
+      },
+    }),
   }),
 });
 
@@ -99,4 +107,5 @@ export const {
   useAddCommentMutation,
   useGetLanguagesQuery,
   useAddSnippetMutation,
+  useDeleteSnippetMutation,
 } = snippetsApi;

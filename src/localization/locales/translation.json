@@ -72,6 +72,7 @@
     "title": "Stack"
   },
   "snippets": {
+     "deletedSnippet": "Snippet not found",
     "errors": {
       "loadFailed": "Failed to load snippets"
     }

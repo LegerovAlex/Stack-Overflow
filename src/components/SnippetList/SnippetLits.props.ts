@@ -7,4 +7,5 @@ export interface SnippetListProps {
   lastElementRef?: RefCallback<HTMLElement>;
   onLike: (id: string, currentMark: MarkType, type: 'like' | 'dislike') => void;
   onComment: (id: string) => void;
+  onDelete?: (id: string) => void;
 }

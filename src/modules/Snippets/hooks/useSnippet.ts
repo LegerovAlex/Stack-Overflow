@@ -14,12 +14,13 @@ export const useSnippet = () => {
 
   const { isAuthenticated } = useAuth();
 
-  const { handleLike } = useSnippetActions();
+  const { handleLike, handleDelete } = useSnippetActions();
 
   return {
     id,
     isLoading,
     isError,
+    handleDelete,
     snippet,
     comments,
     handleLike,

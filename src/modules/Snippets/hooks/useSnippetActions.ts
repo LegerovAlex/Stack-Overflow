@@ -3,9 +3,12 @@ import { useSnippetMark } from './useSnippetMark';
 import type { MarkType } from '@/types/snippets.types';
 import { RoutesPaths } from '@/routes/routeesPaths';
 import { useNavigate } from 'react-router';
+import { useDeleteSnippetMutation } from '../api/snippets.api';
 
 export const useSnippetActions = () => {
   const { handleMark } = useSnippetMark();
+
+  const [deleteSnippet] = useDeleteSnippetMutation();
   const navigate = useNavigate();
 
   const handleLike = useCallback(
@@ -22,5 +25,12 @@ export const useSnippetActions = () => {
     [navigate],
   );
 
-  return { handleLike, handleComment };
+  const handleDelete = useCallback(
+    async (id: string) => {
+      await deleteSnippet(id).unwrap();
+    },
+    [deleteSnippet],
+  );
+
+  return { handleLike, handleComment, handleDelete };
 };

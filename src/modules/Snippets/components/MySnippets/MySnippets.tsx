@@ -8,7 +8,7 @@ import { useMySnippets } from '../../hooks/useMySnippet';
 export const MySnippets: FC = () => {
   const { t } = useTranslation();
 
-  const { isAuthenticated, isError, isLoading, snippets, handleLike, handleComment } =
+  const { isAuthenticated, isError, isLoading, snippets, handleLike, handleComment, handleDelete } =
     useMySnippets();
 
   if (!isAuthenticated)
@@ -19,7 +19,12 @@ export const MySnippets: FC = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <SnippetList onLike={handleLike} onComment={handleComment} items={snippets} />
+        <SnippetList
+          onLike={handleLike}
+          onComment={handleComment}
+          onDelete={handleDelete}
+          items={snippets}
+        />
       )}
       {isError && <Typography>{t('snippets.errors.loadFailed')}</Typography>}
     </>

@@ -19,6 +19,7 @@ export const Snippet = () => {
     isError,
     id: snippetId,
     isAuthenticated,
+    handleDelete,
     handleLike,
   } = useSnippet();
   const [addComment, { isLoading: isAdding }] = useAddCommentMutation();
@@ -42,14 +43,17 @@ export const Snippet = () => {
   };
 
   if (isLoading) return <Spinner />;
-  if (isError || !snippet)
+
+  if (isError)
     return (
       <Typography sx={snippetStyles.errorMessage}>{t('snippets.errors.loadFailed')}</Typography>
     );
 
+  if (!snippet) return <Typography>{t('snippets.deletedSnippet')}</Typography>;
+
   return (
     <Box sx={snippetStyles.container}>
-      <SnippetCard {...snippet} onLike={handleLike} />
+      <SnippetCard {...snippet} onLike={handleLike} onDelete={handleDelete} />
       <CommentList comments={comments} />
       {isAuthenticated && (
         <CommentInput

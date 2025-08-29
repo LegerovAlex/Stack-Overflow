@@ -7,7 +7,20 @@ import type { SnippetCardProps } from './SnippetCard.props';
 
 export const SnippetCard = forwardRef<HTMLDivElement, SnippetCardProps>(
   (
-    { likes, comments, dislikes, userMarkType, username, language, code, id, onComment, onLike },
+    {
+      likes,
+      comments,
+      dislikes,
+      userMarkType,
+      username,
+      language,
+      isMine,
+      code,
+      id,
+      onDelete,
+      onComment,
+      onLike,
+    },
     ref,
   ) => {
     return (
@@ -25,10 +38,12 @@ export const SnippetCard = forwardRef<HTMLDivElement, SnippetCardProps>(
           <Typography sx={snippetCardStyles.codeBlock}>{code}</Typography>
         </CardContent>
         <SnippetActions
+          isMine={isMine}
           userMarkType={userMarkType}
           likes={likes}
           dislikes={dislikes}
           comments={comments}
+          onDelete={onDelete}
           onLike={() => onLike?.(id, userMarkType || 'none', 'like')}
           onDislike={() => onLike?.(id, userMarkType || 'none', 'dislike')}
           onComment={() => onComment?.(id)}

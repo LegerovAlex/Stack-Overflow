@@ -1,6 +1,7 @@
 import type { AppState } from '@/types/store.types';
 import { createSelector } from '@reduxjs/toolkit';
-import type { CommentItemProps, SnippetCardProps } from '@/components';
+import type { CommentItemProps } from '@/components';
+import type { SnippetsCardData } from './snippets.interface';
 
 const selectSnippets = (state: AppState) => state.snippets.snippets;
 const selectSnippet = (state: AppState) => state.snippets.snippet;
@@ -11,7 +12,7 @@ const selectLanguages = (state: AppState) => state.snippets.languages;
 export const selectSnippetCardProps = (isMySnippets = false) =>
   createSelector(
     [isMySnippets ? selectMySnippets : selectSnippets, selectUser],
-    (snippets, currentUserId): SnippetCardProps[] =>
+    (snippets, currentUserId): SnippetsCardData[] =>
       snippets.map((snippet) => {
         const userMark = snippet.marks.find((m) => m.user.id === currentUserId);
         return {
@@ -23,6 +24,7 @@ export const selectSnippetCardProps = (isMySnippets = false) =>
           dislikes: snippet.marks.filter((m) => m.type === 'dislike').length,
           comments: snippet.comments.length,
           userMarkType: userMark?.type,
+          isMine: snippet.user.id === currentUserId,
         };
       }),
   );
@@ -39,7 +41,7 @@ export const selectCommentsProps = createSelector(
 
 export const selectSnippetCardPropsByID = createSelector(
   [selectSnippet, selectUser],
-  (snippet, currentUserId): SnippetCardProps | null => {
+  (snippet, currentUserId): SnippetsCardData | null => {
     if (!snippet || !snippet.id) return null;
 
     const userMark = snippet.marks.find((m) => m.user.id === currentUserId);
@@ -53,6 +55,7 @@ export const selectSnippetCardPropsByID = createSelector(
       dislikes: snippet.marks.filter((m) => m.type === 'dislike').length,
       comments: snippet.comments.length,
       userMarkType: userMark?.type,
+      isMine: snippet.user.id === currentUserId,
     };
   },
 );

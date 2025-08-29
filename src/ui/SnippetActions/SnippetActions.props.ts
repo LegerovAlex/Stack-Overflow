@@ -9,4 +9,6 @@ export interface SnippetActionsProps {
   onLike: (id: string) => void;
   onDislike: (id: string) => void;
   onComment: (id: string) => void;
+  onDelete?: (id: string) => void;
+  isMine?: boolean;
 }

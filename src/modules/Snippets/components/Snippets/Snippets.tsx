@@ -14,6 +14,7 @@ export const Snippets = () => {
     lastElementRef,
     handleComment,
     handleLike,
+    handleDelete,
   } = useSnippets();
 
   return (
@@ -26,6 +27,7 @@ export const Snippets = () => {
             lastElementRef={lastElementRef}
             onLike={handleLike}
             onComment={handleComment}
+            onDelete={handleDelete}
             items={snippets}
           />
           {isFetchingNextPage && <Spinner />}

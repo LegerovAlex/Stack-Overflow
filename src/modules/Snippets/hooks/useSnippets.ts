@@ -7,6 +7,8 @@ import { useInView } from 'react-intersection-observer';
 import { useSnippetActions } from './useSnippetActions';
 
 export const useSnippets = () => {
+  const { isAuthenticated } = useAuth();
+
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, refetch } =
     useGetSnippetsInfiniteQuery();
 
@@ -24,9 +26,7 @@ export const useSnippets = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const { isAuthenticated } = useAuth();
-
-  const { handleComment, handleLike } = useSnippetActions();
+  const { handleComment, handleLike, handleDelete } = useSnippetActions();
 
   return {
     handleLike,
@@ -34,6 +34,7 @@ export const useSnippets = () => {
     snippets,
     isLoading,
     lastElementRef: ref,
+    handleDelete,
     isFetchingNextPage,
     isAuthenticated,
     isError,

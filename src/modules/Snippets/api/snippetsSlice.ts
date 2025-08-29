@@ -26,6 +26,16 @@ const snippetsSlice = createSlice({
     setMySnippets: (state, action: PayloadAction<Snippet[]>) => {
       state.mySnippets = action.payload;
     },
+    removeSnippet: (state, action: PayloadAction<{ snippetId: string }>) => {
+      const { snippetId } = action.payload;
+
+      state.snippets = state.snippets.filter((snippet) => snippet.id !== snippetId);
+      state.mySnippets = state.mySnippets.filter((snippet) => snippet.id !== snippetId);
+
+      if (state.snippet?.id === snippetId) {
+        state.snippet = null;
+      }
+    },
     updateMarkLocal: (
       state,
       action: PayloadAction<{ snippetId: string; mark: MarkType; userId: string }>,

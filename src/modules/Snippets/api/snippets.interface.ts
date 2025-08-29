@@ -64,3 +64,15 @@ export interface SnippetResponse {
 export interface ApiSnippetCreateResponse {
   data: SnippetResponse;
 }
+
+export interface SnippetsCardData {
+  id: string;
+  likes: number;
+  dislikes: number;
+  comments: number;
+  userMarkType?: MarkType;
+  username: string;
+  language: string;
+  code: string;
+  isMine?: boolean;
+}
